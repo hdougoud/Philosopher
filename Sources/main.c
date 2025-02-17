@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hayden            #+#    #+#             */
-/*   Updated: 2025/02/17 15:51:05 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:58:36 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	convert_numbers(t_philo *philo, char **argv)
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);
 	philo->must_eat = ft_atoi(argv[5]);
+	philo->fork = philo->philosophers;
 }
 
 int	main(int argc, char **argv)
