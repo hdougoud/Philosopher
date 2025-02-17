@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 15:54:27 by hdougoud          #+#    #+#             */
-/*   Updated: 2024/11/27 10:55:47 by hdougoud         ###   ########.fr       */
+/*   Created: 2025/02/17 14:27:52 by hayden            #+#    #+#             */
+/*   Updated: 2025/02/17 15:30:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#ifndef INCLUDE_H
+# define INCLUDE_H
 
-void	ft_putnbr_fd(int n, int fd)
+# include <stdlib.h>
+# include <stdio.h>
+
+typedef struct s_philo
 {
-	if (n == -2147483648)
-		return (ft_putstr_fd("-2147483648", fd));
-	if (n < 0)
-	{
-		n = -n;
-		ft_putchar_fd('-', fd);
-	}
-	if (n > 9)
-		ft_putnbr_fd(n / 10, fd);
-	ft_putchar_fd(n % 10 + '0', fd);
-}
+	int	philosophers;
+	int	time_to_eat;
+	int	time_to_die;
+	int	time_to_sleep;
+	int	must_eat;
+}	t_philo;
 
-//int main(void)
-//{
-//	int n = -2147483648;
-//	ft_putnbr_fd(n, 2);
-//}
+int	ft_atoi(const char *str);
+
+#endif
