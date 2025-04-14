@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 00:18:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/13 00:20:28 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:32:21 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	execute_philo(t_philo *philo)
 {
-	
+	int	philo;
+	philo = pthread_create()
 }

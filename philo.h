@@ -6,17 +6,23 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/13 15:52:54 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:44:54 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <unistd.h>
-# include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
+# include <stdlib.h>
+# include <unistd.h>
 # include <pthread.h>
+# include <sys/time.h>
+
+# ifndef PTHREAD_THREADS_MAX
+#  define PTHREAD_THREADS_MAX 1024
+# endif
 
 # define COLOR_RED			"\x1b[31m"
 # define COLOR_RED_ULTRA	"\x1b[31;1m"
@@ -31,7 +37,7 @@ typedef struct s_philo
 	int	time_to_die;
 	int	time_to_sleep;
 	int	must_eat;
-	int	fork;
+	int	threads;
 }	t_philo;
 
 int		ft_atoi(const char *str);
