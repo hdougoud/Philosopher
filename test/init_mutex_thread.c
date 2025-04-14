@@ -39,27 +39,32 @@ int main (int argc, char **argv)
 {
 	int			i = 0;
 	int			n_thread;
-	t_pos		*pos;
+	int			*actual;
+	t_pos		**pos;
 	pthread_t	*thread_tab;
 
 	if (argc != 2)
 		return (1);
 
-	pos = malloc(sizeof(t_pos));
-	if (!pos)
-		return (1);
-	pos->current = malloc(sizeof(int));
-	if (!pos->current)
-		return(1);
-
 	n_thread = atoi(argv[1]);
 	thread_tab = alloc_thread(n_thread);
 
-	*(pos)->current = 1;
+	pos = malloc(sizeof(t_pos) * n_thread);
+	if (!pos)
+		return (1);
+	actual = malloc(sizeof(int));
+	if (!actual)
+		return (1);
+
+	*actual = 1;
 	while (i < n_thread)
 	{
-		pos->mypos = i;
-		if (pthread_create(&thread_tab[i], NULL, handle_thread, (void *) pos))
+		pos[i] = malloc(sizeof(t_pos));
+		if (!pos[i])
+			return (1);
+		pos[i]->current = actual;
+		pos[i]->mypos = i + 1;
+		if (pthread_create(&thread_tab[i], NULL, handle_thread, (void *) pos[i]))
 		{
 			printf("Create thread failed");
 			return (1);
