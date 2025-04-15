@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:15:02 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/13 15:19:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:22:15 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	ft_atoi(const char *str)
 		print_error("only numbers as arguments are allowed");
 	if (is_neg == 1)
 		total = -total;
+	if (total < 0)
+		print_error("args can't be under 0"); //add free here // Warning potentiel leaks
 	return (total);
 }
 

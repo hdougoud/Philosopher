@@ -6,7 +6,7 @@
 typedef struct s_current
 {
 	pthread_mutex_t	mutex;
-	int				*current_pos;
+	int				current_pos;
 }	t_current;
 
 
@@ -21,14 +21,19 @@ void	*handle_thread(void *status)
 	t_pos *position;
 
 	position = (t_pos *)status;
-	while (*position->current->current_pos != position->mypos)
+	while (1)
 	{
-		usleep(10);
+		pthread_mutex_lock(&(position->current->mutex));
+		if (position->current->current_pos == position->mypos)
+		{
+			printf("Bonjour, je suis le thread numéro %d\n", position->mypos);
+			position->current->current_pos += 1;
+			pthread_mutex_unlock(&(position->current->mutex));
+			break;
+		}
+		pthread_mutex_unlock(&(position->current->mutex));
+		usleep(10000);
 	}
-	pthread_mutex_lock(&(position->current->mutex));
-	printf("Bonjour, je suis le thread numéro %d\n", position->mypos);
-	*position->current->current_pos += 1;
-	pthread_mutex_unlock(&(position->current->mutex));
 	return NULL;
 }
 
@@ -70,14 +75,13 @@ int main (int argc, char **argv)
 		return (1);
 
 	pthread_mutex_init(&(current->mutex), NULL);
-	*actual = 1;
+	current->current_pos = 1;
 	while (i < n_thread)
 	{
 		pos[i] = malloc(sizeof(t_pos));
 		if (!pos[i])
 			return (1);
 		pos[i]->current = current;
-		pos[i]->current->current_pos = actual;
 		pos[i]->mypos = i + 1;
 		if (pthread_create(&thread_tab[i], NULL, handle_thread, (void *) pos[i]))
 		{
@@ -91,7 +95,7 @@ int main (int argc, char **argv)
 	{
 		if (pthread_join(thread_tab[i], NULL))
 		{
-			printf("Create thread failed");
+			printf("Join thread faild");
 			return (1);
 		}
 		

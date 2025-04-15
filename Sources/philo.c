@@ -6,14 +6,15 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 00:18:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/14 10:32:21 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:21:09 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	execute_philo(t_philo *philo)
+void	*execute_philo(void *pthread)
 {
-	int	philo;
-	philo = pthread_create()
+	(void) pthread;
+	printf("Hello World\n");
+	return (NULL);
 }
