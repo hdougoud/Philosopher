@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/15 18:52:00 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:05:48 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,38 +30,11 @@
 # define COLOR_YELLOW_ULTRA	"\x1b[33m;1m"
 # define COLOR_RESET		"\x1b[0m"
 
-typedef struct s_args
-{
-	int		philosophers;
-	int		time_to_eat;
-	int		time_to_die;
-	int		time_to_sleep;
-	int		must_eat;
-}	t_args;
-
-typedef struct s_fork
-{
-	pthread_mutex_t	mutex;
-	unsigned int	fork;
-}	t_fork;
-
-typedef struct s_philo
-{
-	int	x_philo;
-}	t_philo;
-typedef struct s_data
-{
-	t_args	*args;
-	t_philo	*philo;
-}	t_data;
-
 int		ft_atoi(const char *str);
 
 char	*ft_strjoin(char const *s1, char const *s2);
 
 void	print_error(char *str);
-void	init_struct(t_data *data);
-void	init_philosophers(t_data *data, int n_thread);
 void	*execute_philo(void *pthread);
 void	*ft_calloc(size_t count, size_t size);
 

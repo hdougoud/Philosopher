@@ -6,20 +6,18 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:15:02 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/15 16:22:15 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:59:35 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../include/philo.h"
 
 int	ft_atoi(const char *str)
 {
 	int	i;
-	int	is_neg;
 	int	total;
 
 	i = 0;
-	is_neg = 0;
 	total = 0;
 	while ((str[i] >= '\t' && str[i] <= '\r') || (str[i] == ' '))
 	{
@@ -27,31 +25,16 @@ int	ft_atoi(const char *str)
 			print_error("only numbers as arguments are allowed");
 		i++;
 	}
-	if (str[i] == '-')
-		is_neg = 1;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] == '+')
 		i++;
+	if (str[i] == '-')
+		print_error("args can't be negative numbers");
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		total = total * 10 + (str[i] - 48);
 		i++;
 	}
 	if (str[i])
-		print_error("only numbers as arguments are allowed");
-	if (is_neg == 1)
-		total = -total;
-	if (total < 0)
-		print_error("args can't be under 0"); //add free here // Warning potentiel leaks
+		print_error("only numbers as arguments are allowed"); //check leak with no valid number
 	return (total);
 }
-
-//int main(void)
-//{
-//	char n[40] = "\t\v\f\r\n \f-06050-1234";
-//	int i1 = printf("%d\n",atoi(n));
-//	int i2 = printf("%d\n", ft_atoi(n));
-//
-//	// if (i1 == i2)
-//	// 	exit(TEST_SUCCESS);
-//	// exit(TEST_KO);
-//}

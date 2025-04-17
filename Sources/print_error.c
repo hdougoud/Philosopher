@@ -6,11 +6,11 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:43:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/13 15:59:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:07:51 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philo.h"
+#include "../include/philo.h"
 
 void	print_error(char *str)
 {
@@ -35,6 +35,6 @@ void	print_error(char *str)
 	write(2, error, ft_strlen(error));
 	free(color);
 	free(error);
-	exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE); //exit is unautorised
 }
 
