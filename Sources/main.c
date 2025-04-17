@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/17 19:21:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:27:47 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,37 @@ static void	*exec_thread(void *thread)
 	
 	data = (t_data *) thread;
 	printf("Hello i'm a philosopher number %d\n", data->philo_x);
-	set_timer();
+	pthread_mutex_lock(&data->global_timer->mutex);
+	set_timer(data->global_timer->tv, data->global_timer->timer);
+	printf("time is at %dms\n", *data->global_timer->timer);
+	pthread_mutex_unlock(&data->global_timer->mutex);
 	return (NULL); 
 }
 
-static void	init_philosophers(t_data **data, t_args *args, int n_thread)
+static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct timeval *tv)
 {
 	int		i;
+	int		n_thread;
+	t_timer	*gl_timer;
 
-	(void) args;
-	data = ft_calloc(1, sizeof(t_data));
-	if (!data)
+	n_thread = args->philosophers;
+	*data = ft_calloc(n_thread, sizeof(t_data *));
+	if (!*data)
 		print_error("Malloc : Allocation for **philo failed");
 	i = 0;
+	gl_timer = init_timer_struct(timer, tv);//checkmalloc
 	while (i < n_thread)
 	{
-		data[i] = malloc(sizeof(t_data)); //check leaks (free t_philo tab is possibly needed)
-		if (!data[i])
+		(*data)[i] = malloc(sizeof(t_data));
+		if (!(*data)[i])
 			print_error("Malloc : Allocation for philo[i] failed");
-		data[i]->philo_x = i + 1;
-		if (pthread_create(&data[i]->thread_id, NULL, exec_thread, (void *)data[i]))
+		(*data)[i]->philo_x = i + 1;
+		(*data)[i]->global_timer = gl_timer;
+		if (pthread_create(&(*data)[i]->thread_id, NULL, exec_thread, (void *)(*data)[i]))
 			print_error("Pthread : Thread creation failed");
+		usleep(10000);
 		i++;
 	}
-}
-
-int set_timer(struct timeval *tv, int *timer)
-{
-	int	old_sec;
-	int	old_usec;
-	int	new_timer;
-
-	new_timer = *timer;
-	old_sec = tv->tv_sec;
-	old_usec = tv->tv_usec;
-	if (gettimeofday(tv, NULL))
-		return (1);
-	new_timer += (tv->tv_sec - old_sec) * 1000;
-	new_timer += (tv->tv_usec - old_usec) / 1000;
-	*(timer) = new_timer;
-	return (0);
 }
 
 static void	convert_numbers(t_args *args, int argc, char **argv)
@@ -98,7 +89,8 @@ int	main(int argc, char **argv)
 	if (gettimeofday(&tv, NULL))
 		return (1);
 	printf("%d\n", timer);
-	init_philosophers(data, &args, timer, tv);
+	usleep(10000);
+	init_philosophers(&data, &args, &timer, &tv);
 	// printf("philosophers	%d\n", args.philosophers);
 	// printf("time_to_die	%d\n", args.time_to_die);
 	// printf("time_to_eat	%d\n", args.time_to_eat);

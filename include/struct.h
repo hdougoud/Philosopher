@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/17 19:17:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:21:26 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ typedef struct s_args
 	int		must_eat;
 }	t_args;
 
-typedef struct s_time
+typedef struct s_timer
 {
 	pthread_mutex_t	mutex;
-	int				*time;
+	int				*timer;
 	struct timeval	*tv;
-}	t_time;
+}	t_timer;
+
+//rename s_time for gl_timer (global) et create a new, for pr_timer (private)
 
 typedef struct s_data
 {
@@ -51,10 +53,10 @@ typedef struct s_data
 	int			current_action;
 	int			last_eat;
 	t_action	action;
-	t_time		*time;
+	t_timer		*perso_timer;
+	t_timer		*global_timer;
 	t_args		*args;
 	t_mutex		*fork;
-	t_mutex		*timer;
 	t_mutex		*is_finished;
 }	t_data;
 

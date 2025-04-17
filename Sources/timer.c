@@ -6,16 +6,25 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 19:17:24 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/17 19:21:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/18 01:18:11 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include "../include/struct.h"
 
-t_time	*init_timer_struct(int *time, struct timeval *tv)
+t_timer	*init_timer_struct(int *timer, struct timeval *tv)
 {
-	//init struct here;
+	t_timer	*time;
+
+	time = malloc(sizeof(t_timer));
+	if (!time)
+		return (NULL);
+	if (pthread_mutex_init(&(time->mutex), NULL))
+		print_error("Mutex : mutex failed");
+	time->timer = timer;
+	time->tv = tv;
+	return (time);
 }
 
 int set_timer(struct timeval *tv, int *timer)
