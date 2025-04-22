@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/18 01:27:47 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/18 21:22:27 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ static void	*exec_thread(void *thread)
 	set_timer(data->global_timer->tv, data->global_timer->timer);
 	printf("time is at %dms\n", *data->global_timer->timer);
 	pthread_mutex_unlock(&data->global_timer->mutex);
+	usleep(100000);
 	return (NULL); 
 }
 
 static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct timeval *tv)
 {
-	int		i;
-	int		n_thread;
-	t_timer	*gl_timer;
+	int				i;
+	int				n_thread;
+	int				error_code;
+	t_global_timer	*gl_timer;
 
 	n_thread = args->philosophers;
 	*data = ft_calloc(n_thread, sizeof(t_data *));
@@ -45,9 +47,10 @@ static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct t
 			print_error("Malloc : Allocation for philo[i] failed");
 		(*data)[i]->philo_x = i + 1;
 		(*data)[i]->global_timer = gl_timer;
-		if (pthread_create(&(*data)[i]->thread_id, NULL, exec_thread, (void *)(*data)[i]))
-			print_error("Pthread : Thread creation failed");
-		usleep(10000);
+		error_code = pthread_create(&(*data)[i]->thread_id, NULL, exec_thread, (void *)(*data)[i]);
+		if (error_code)
+			print_error_code("Pthread failed : ", error_code);
+		//usleep(1000);
 		i++;
 	}
 }
@@ -63,8 +66,8 @@ static void	convert_numbers(t_args *args, int argc, char **argv)
 		args->must_eat = ft_atoi(argv[5]);
 	if (args->philosophers < 1)
 		print_error("Not enough philosophers");
-	if (args->philosophers > PTHREAD_THREADS_MAX) //disable this later en check if the thread function failed with big ammount
-		print_error("Too much philosophers");
+	//if (args->philosophers > PTHREAD_THREADS_MAX) //disable this later en check if the thread function failed with big ammount
+	//	print_error("Too much philosophers");
 }
 
 static void	check_args(int argc)
@@ -88,14 +91,12 @@ int	main(int argc, char **argv)
 	convert_numbers(&args, argc, argv);
 	if (gettimeofday(&tv, NULL))
 		return (1);
-	printf("%d\n", timer);
-	usleep(10000);
 	init_philosophers(&data, &args, &timer, &tv);
 	// printf("philosophers	%d\n", args.philosophers);
 	// printf("time_to_die	%d\n", args.time_to_die);
 	// printf("time_to_eat	%d\n", args.time_to_eat);
 	// printf("time_to_sleep	%d\n", args.time_to_sleep);
 	// printf("must_eat	%d\n", args.must_eat);
-	usleep(1000);
+	usleep(100000);
 	return (0);
 }

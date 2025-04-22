@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/18 01:21:26 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:51:23 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,33 @@ typedef struct s_args
 	int		must_eat;
 }	t_args;
 
-typedef struct s_timer
+typedef struct s_global_timer
 {
 	pthread_mutex_t	mutex;
 	int				*timer;
 	struct timeval	*tv;
-}	t_timer;
+}	t_global_timer;
+
+typedef struct s_pr_timer
+{
+	/* data */
+}	t_pr_timer;
+
 
 //rename s_time for gl_timer (global) et create a new, for pr_timer (private)
 
 typedef struct s_data
 {
-	pthread_t	thread_id;
-	int			philo_x;
-	int			current_action;
-	int			last_eat;
-	t_action	action;
-	t_timer		*perso_timer;
-	t_timer		*global_timer;
-	t_args		*args;
-	t_mutex		*fork;
-	t_mutex		*is_finished;
+	pthread_t		thread_id;
+	int				philo_x;
+	int				current_action;
+	int				last_eat;
+	t_action		action;
+	//t_timer			*perso_timer;
+	t_global_timer	*global_timer;
+	t_args			*args;
+	t_mutex			*fork;
+	t_mutex			*is_finished;
 }	t_data;
 
 #endif

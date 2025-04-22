@@ -6,13 +6,32 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:43:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/17 18:07:51 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:12:14 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	print_error(char *str)
+void	print_error_code(const char *function, int err_code)
+{
+	char *error;
+
+	error = NULL;
+	printf("%d\n", err_code);
+	if (err_code == 35)
+		error = ft_strjoin(function, "Resource temporarily unavailable");
+	else
+	{
+		print_error(function);
+		return ;
+	}
+	if (error == NULL)
+		print_error("Print_error : Allocation memory failed");
+	else 
+		print_error(error);
+}
+
+void	print_error(const char *str)
 {
 	char *color;
 	char *error;
