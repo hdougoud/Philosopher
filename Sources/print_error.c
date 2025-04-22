@@ -6,11 +6,21 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:43:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/20 18:12:14 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:14:22 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+static void	unknow_error(const char *function)
+{
+	char *error;
+
+	error = ft_strjoin(function, "unknow error");
+	if (!error)
+		print_error("Malloc : Allocation memory failed");
+	print_error(error);
+}
 
 void	print_error_code(const char *function, int err_code)
 {
@@ -18,17 +28,24 @@ void	print_error_code(const char *function, int err_code)
 
 	error = NULL;
 	printf("%d\n", err_code);
-	if (err_code == 35)
+	if (err_code == EAGAIN)
 		error = ft_strjoin(function, "Resource temporarily unavailable");
+	else if (err_code == EPERM)
+		error = ft_strjoin(function, "Operation not permitted");
+	else if (err_code == EINVAL)
+		error = ft_strjoin(function, "Invalid argument");
+	else if (err_code == ESRCH)
+		error = ft_strjoin(function, "No such process");
+	else if (err_code == EDEADLK)
+		error = ft_strjoin(function, "Resource deadlock avoided");
 	else
 	{
-		print_error(function);
+		unknow_error(function);
 		return ;
 	}
 	if (error == NULL)
-		print_error("Print_error : Allocation memory failed");
-	else 
-		print_error(error);
+		print_error("Malloc : Allocation memory failed");
+	print_error(error);
 }
 
 void	print_error(const char *str)

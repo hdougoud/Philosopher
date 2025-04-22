@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/20 18:11:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:04:43 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <errno.h>
 
 # ifndef PTHREAD_THREADS_MAX
 #  define PTHREAD_THREADS_MAX 1024
