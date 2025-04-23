@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/22 12:04:43 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/23 22:48:04 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define COLOR_RESET		"\x1b[0m"
 
 typedef struct s_global_timer t_global_timer;
+typedef struct s_perso_timer t_perso_timer;
 
 int		ft_atoi(const char *str);
 int		set_timer(struct timeval *tv, int *timer);
@@ -45,6 +46,9 @@ void	print_error_code(const char *function, int err_code);
 
 size_t	ft_strlen(const char *str);
 
-t_global_timer	*init_timer_struct(int *timer, struct timeval *tv);
+t_global_timer	*init_global_timer_struct(int *timer, struct timeval *tv);
+
+t_perso_timer	*init_personnal_timer_struct(void);
+
 
 #endif

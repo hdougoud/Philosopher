@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:43:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/22 12:14:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/23 13:14:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	print_error_code(const char *function, int err_code)
 	char *error;
 
 	error = NULL;
-	printf("%d\n", err_code);
 	if (err_code == EAGAIN)
 		error = ft_strjoin(function, "Resource temporarily unavailable");
 	else if (err_code == EPERM)
@@ -53,6 +52,7 @@ void	print_error(const char *str)
 	char *color;
 	char *error;
 
+	usleep(1000);
 	color = ft_strjoin(COLOR_RED, str);
 	if (!color)
 	{

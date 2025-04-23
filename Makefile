@@ -28,6 +28,5 @@ fclean: clean
 
 re: fclean all
 
-.SILENT:
 .PHONY: all clean fclean re
 

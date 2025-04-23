@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/18 21:22:27 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/23 23:06:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ static void	*exec_thread(void *thread)
 	data = (t_data *) thread;
 	printf("Hello i'm a philosopher number %d\n", data->philo_x);
 	pthread_mutex_lock(&data->global_timer->mutex);
+	usleep(25000);
+	data->perso_timer = init_personnal_timer_struct();
+	usleep(25000);
 	set_timer(data->global_timer->tv, data->global_timer->timer);
-	printf("time is at %dms\n", *data->global_timer->timer);
+	printf("Global timer is at %dms\n", *data->global_timer->timer);
+	set_timer(&data->perso_timer->tv, &data->perso_timer->timer);
+	printf("Personal timer is at %dms\n", data->perso_timer->timer);
 	pthread_mutex_unlock(&data->global_timer->mutex);
-	usleep(100000);
 	return (NULL); 
 }
 
@@ -39,7 +43,7 @@ static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct t
 	if (!*data)
 		print_error("Malloc : Allocation for **philo failed");
 	i = 0;
-	gl_timer = init_timer_struct(timer, tv);//checkmalloc
+	gl_timer = init_global_timer_struct(timer, tv);//checkmalloc
 	while (i < n_thread)
 	{
 		(*data)[i] = malloc(sizeof(t_data));
@@ -50,7 +54,7 @@ static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct t
 		error_code = pthread_create(&(*data)[i]->thread_id, NULL, exec_thread, (void *)(*data)[i]);
 		if (error_code)
 			print_error_code("Pthread failed : ", error_code);
-		//usleep(1000);
+		usleep(100);
 		i++;
 	}
 }
@@ -84,7 +88,7 @@ int	main(int argc, char **argv)
 	t_data	**data;
 	t_args	args;
 	struct	timeval tv;
-							//make a array with data strcut and give a copy to all thread!
+
 	timer = 0;
 	data = NULL;
 	check_args(argc);
@@ -97,6 +101,6 @@ int	main(int argc, char **argv)
 	// printf("time_to_eat	%d\n", args.time_to_eat);
 	// printf("time_to_sleep	%d\n", args.time_to_sleep);
 	// printf("must_eat	%d\n", args.must_eat);
-	usleep(100000);
+	usleep(1000000);
 	return (0);
 }
