@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 10:44:17 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:23:30 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,18 @@ typedef struct s_print
 	pthread_mutex_t mutex;
 }	t_print;
 
+typedef struct s_global
+{
+	t_global_timer	*timer;
+	t_args			*args;
+	t_mutex			*fork;
+	t_mutex			*is_finished;
+}	t_global;
+
 typedef struct s_data
 {
 	pthread_t		thread_id;
 	int				philo_x;
-	int				current_action;
 	int				last_eat;
 	t_action		action;
 	t_perso_timer	*perso_timer;

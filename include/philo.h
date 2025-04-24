@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 10:48:25 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 13:48:11 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@
 # define YELLOW_ULTRA	"\x1b[33m;1m"
 # define RESET			"\x1b[0m"
 
-typedef struct s_global_timer t_global_timer;
+typedef struct s_args t_args;
+typedef struct s_data t_data;
 typedef struct s_perso_timer t_perso_timer;
+typedef struct s_global_timer t_global_timer;
 
 int		ft_atoi(const char *str);
 int		set_timer(struct timeval *tv, int *timer);
+int	init_philosophers(t_data ***data, t_args *args);
 
 char	*ft_strjoin(char const *s1, char const *s2);
 
+void	*exec_thread(void *thread);
 void	putstr_fd(int fd, char *str);
 void	print_error(const char *str);
 void	*execute_philo(void *pthread);
