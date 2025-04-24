@@ -1,7 +1,0 @@
-.gitignore
-.DS_Store
-*.a
-*.o
-philo
-.vscode
-*.out
