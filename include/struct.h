@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 10:07:27 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:44:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_args
 typedef struct s_global_timer
 {
 	pthread_mutex_t	mutex;
-	int				*timer;
-	struct timeval	*tv;
+	int				timer;
+	struct timeval	tv;
 }	t_global_timer;
 
 typedef struct s_perso_timer

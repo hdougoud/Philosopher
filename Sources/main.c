@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 10:34:34 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:32:54 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	*exec_thread(void *thread)
 	usleep(25000);
 	data->perso_timer = init_personnal_timer_struct();
 	usleep(25000);
-	set_timer(data->global_timer->tv, data->global_timer->timer);
-	printf("Global timer is at %dms\n", *data->global_timer->timer);
+	set_timer(&data->global_timer->tv, &data->global_timer->timer);
+	printf("Global timer is at %dms\n", data->global_timer->timer);
 	set_timer(&data->perso_timer->tv, &data->perso_timer->timer);
 	printf("Personal timer is at %dms\n", data->perso_timer->timer);
 	pthread_mutex_unlock(&data->global_timer->mutex);
 	return (NULL); 
 }
 
-static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct timeval *tv)
+static void	init_philosophers(t_data ***data, t_args *args)
 {
 	int				i;
 	int				n_thread;
@@ -43,7 +43,7 @@ static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct t
 	if (!*data)
 		print_error("Malloc : Allocation for **philo failed");
 	i = 0;
-	gl_timer = init_global_timer_struct(timer, tv);//checkmalloc
+	gl_timer = init_global_timer_struct();//checkmalloc
 	while (i < n_thread)
 	{
 		(*data)[i] = malloc(sizeof(t_data));
@@ -100,25 +100,15 @@ static int	check_args(int argc)
 
 int	main(int argc, char **argv)
 {
-	int		timer;
 	t_data	**data;
 	t_args	args;
-	struct	timeval tv;
 
-	timer = 0;
 	data = NULL;
 	if (check_args(argc))
 		return (1);
 	if (convert_numbers(&args, argc, argv))
 		return (1);
-	if (gettimeofday(&tv, NULL))
-		return (1);
-	init_philosophers(&data, &args, &timer, &tv);
-	// printf("philosophers	%d\n", args.philosophers);
-	// printf("time_to_die	%d\n", args.time_to_die);
-	// printf("time_to_eat	%d\n", args.time_to_eat);
-	// printf("time_to_sleep	%d\n", args.time_to_sleep);
-	// printf("must_eat	%d\n", args.must_eat);
+	init_philosophers(&data, &args);
 	usleep(1000000);
 	return (0);
 }

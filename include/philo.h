@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 10:18:13 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:48:25 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # endif
 
 # define RED			"\x1b[31m"
-# define RED_ULTRA	"\x1b[31;1m"
-# define YELLOW		"\x1b[33m"
+# define RED_ULTRA		"\x1b[31;1m"
+# define YELLOW			"\x1b[33m"
 # define YELLOW_ULTRA	"\x1b[33m;1m"
-# define RESET		"\x1b[0m"
+# define RESET			"\x1b[0m"
 
 typedef struct s_global_timer t_global_timer;
 typedef struct s_perso_timer t_perso_timer;
@@ -47,7 +47,7 @@ void	print_error_code(const char *function, int err_code);
 
 size_t	ft_strlen(const char *str);
 
-t_global_timer	*init_global_timer_struct(int *timer, struct timeval *tv);
+t_global_timer	*init_global_timer_struct(void);
 
 t_perso_timer	*init_personnal_timer_struct(void);
 
