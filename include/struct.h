@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/23 22:49:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:07:27 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ typedef struct s_perso_timer
 	struct timeval	tv;
 }	t_perso_timer;
 
-
-//rename s_time for gl_timer (global) et create a new, for pr_timer (private)
+typedef struct s_print
+{
+	pthread_mutex_t mutex;
+}	t_print;
 
 typedef struct s_data
 {

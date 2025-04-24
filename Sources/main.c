@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/23 23:06:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:34:34 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,43 @@ static void	init_philosophers(t_data ***data, t_args *args, int *timer, struct t
 	}
 }
 
-static void	convert_numbers(t_args *args, int argc, char **argv)
+static int	convert_numbers(t_args *args, int argc, char **argv)
 {
 	args->philosophers = ft_atoi(argv[1]);
 	args->time_to_die = ft_atoi(argv[2]);
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
 	args->must_eat = 0;
+	if (args->philosophers == -1 || args->time_to_die == - 1 ||
+		args->time_to_eat == -1 || args->time_to_sleep == -1)
+		return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	if (argc == 6)
+	{
 		args->must_eat = ft_atoi(argv[5]);
+		if (args->must_eat == -1)
+			return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
+	}
 	if (args->philosophers < 1)
-		print_error("Not enough philosophers");
-	//if (args->philosophers > PTHREAD_THREADS_MAX) //disable this later en check if the thread function failed with big ammount
-	//	print_error("Too much philosophers");
+	{
+		putstr_fd(2, RED"Not enough philosophers\n"YELLOW"Exit Program\n"RESET);
+		return (1);
+	}
+	return (0);
 }
 
-static void	check_args(int argc)
+static int	check_args(int argc)
 {
 	if (argc < 5)
-		print_error("Not enough args");
+	{
+		putstr_fd(2, RED"Not enough args\n"YELLOW"Exit Program\n"RESET);
+		return (1);
+	}
 	if (argc > 6)
-		print_error("Too much args");
+	{
+		putstr_fd(2, RED"Too much args\n"YELLOW"Exit Program\n"RESET);
+		return (1);
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -91,8 +107,10 @@ int	main(int argc, char **argv)
 
 	timer = 0;
 	data = NULL;
-	check_args(argc);
-	convert_numbers(&args, argc, argv);
+	if (check_args(argc))
+		return (1);
+	if (convert_numbers(&args, argc, argv))
+		return (1);
 	if (gettimeofday(&tv, NULL))
 		return (1);
 	init_philosophers(&data, &args, &timer, &tv);

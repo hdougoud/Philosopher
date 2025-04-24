@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:01:46 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/17 18:11:37 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:16:32 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+void	putstr_fd(int fd, char *str)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	write(fd, str, len);
 }
