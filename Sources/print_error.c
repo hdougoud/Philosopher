@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:43:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 10:18:34 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:26:26 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	unknow_error(const char *function) //protect multi usage
 {
-	char *error;
+	char	*error;
 
 	error = ft_strjoin(function, "unknow error");
 	if (!error)
@@ -24,7 +24,7 @@ static void	unknow_error(const char *function) //protect multi usage
 
 void	print_error_code(const char *function, int err_code) //protect multi usage
 {
-	char *error;
+	char	*error;
 
 	error = NULL;
 	if (err_code == EAGAIN)
@@ -49,10 +49,9 @@ void	print_error_code(const char *function, int err_code) //protect multi usage
 
 void	print_error(const char *str) //protect multi usage
 {
-	char *color;
-	char *error;
+	char	*color;
+	char	*error;
 
-	usleep(1000);
 	color = ft_strjoin(RED, str);
 	if (!color)
 	{
@@ -73,4 +72,3 @@ void	print_error(const char *str) //protect multi usage
 	free(error);
 	exit(EXIT_FAILURE); //exit is unautorised
 }
-

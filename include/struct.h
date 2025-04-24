@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 14:23:30 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:54:20 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_perso_timer
 
 typedef struct s_print
 {
-	pthread_mutex_t mutex;
+	pthread_mutex_t	mutex;
 }	t_print;
 
 typedef struct s_global

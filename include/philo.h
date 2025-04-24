@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 13:48:11 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:55:59 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,31 @@
 # define YELLOW_ULTRA	"\x1b[33m;1m"
 # define RESET			"\x1b[0m"
 
-typedef struct s_args t_args;
-typedef struct s_data t_data;
-typedef struct s_perso_timer t_perso_timer;
-typedef struct s_global_timer t_global_timer;
+typedef struct s_args			t_args;
+typedef struct s_data			t_data;
+typedef struct s_perso_timer	t_perso_timer;
+typedef struct s_global_timer	t_global_timer;
 
-int		ft_atoi(const char *str);
-int		set_timer(struct timeval *tv, int *timer);
-int	init_philosophers(t_data ***data, t_args *args);
+int				ft_atoi(const char *str);
+int				set_timer(struct timeval *tv, int *timer);
+int				join_all_thread(t_data **data, int n_threads);
+int				init_philosophers(t_data ***data, t_args *args);
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin(char const *s1, char const *s2);
 
-void	*exec_thread(void *thread);
-void	putstr_fd(int fd, char *str);
-void	print_error(const char *str);
-void	*execute_philo(void *pthread);
-void	*ft_calloc(size_t count, size_t size);
-void	print_error_code(const char *function, int err_code);
+void			*exec_thread(void *thread);
+void			putstr_fd(int fd, char *str);
+void			print_error(const char *str);
+void			*execute_philo(void *pthread);
+void			*ft_calloc(size_t count, size_t size);
+void			print_error_code(const char *function, int err_code);
 
-size_t	ft_strlen(const char *str);
+size_t			ft_strlen(const char *str);
+
+/*-------------------------------- STRUCTURE ---------------------------------*/
 
 t_global_timer	*init_global_timer_struct(void);
 
 t_perso_timer	*init_personnal_timer_struct(void);
-
 
 #endif

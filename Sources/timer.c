@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 19:17:24 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 11:32:45 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:27:12 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_perso_timer	*init_personnal_timer_struct(void)
 {
 	struct timeval	tv;
 	t_perso_timer	*perso;
-	
 
 	if (gettimeofday(&tv, NULL))
 		print_error("GetTimeOfDay : Unknow error");
@@ -36,7 +35,7 @@ t_global_timer	*init_global_timer_struct(void)
 
 	time = malloc(sizeof(t_global_timer));
 	if (!time)
-	return (NULL);
+		return (NULL);
 	if (gettimeofday(&tv, NULL))
 		return (NULL);
 	if (pthread_mutex_init(&(time->mutex), NULL))
@@ -46,11 +45,11 @@ t_global_timer	*init_global_timer_struct(void)
 	return (time);
 }
 
-int set_timer(struct timeval *tv, int *timer)
+int	set_timer(struct timeval *tv, int *timer)
 {
 	int	old_sec;
 	int	old_usec;
-	int new_timer;
+	int	new_timer;
 
 	new_timer = *timer;
 	old_sec = tv->tv_sec;

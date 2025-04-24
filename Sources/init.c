@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 14:55:28 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:10:56 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	init_philosophers(t_data ***data, t_args *args)
 		error_code = pthread_create(&(*data)[i]->thread_id, NULL, exec_thread, (void *)(*data)[i]);
 		if (error_code)
 			print_error_code("Pthread failed : ", error_code);
-		usleep(100);
 		i++;
 	}
 	return (0);

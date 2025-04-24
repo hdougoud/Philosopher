@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 13:34:55 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:25:13 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static int	convert_numbers(t_args *args, int argc, char **argv)
 	args->time_to_eat = ft_atoi(argv[3]);
 	args->time_to_sleep = ft_atoi(argv[4]);
 	args->must_eat = 0;
-	if (args->philosophers == -1 || args->time_to_die == - 1 ||
-		args->time_to_eat == -1 || args->time_to_sleep == -1)
+	if (args->philosophers == -1 || args->time_to_die == -1
+		|| args->time_to_eat == -1 || args->time_to_sleep == -1)
 		return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	if (argc == 6)
 	{
@@ -63,6 +63,6 @@ int	main(int argc, char **argv)
 	if (convert_numbers(&args, argc, argv))
 		return (1);
 	init_philosophers(&data, &args);
-	usleep(1000000);
+	join_all_thread(data, args.philosophers);
 	return (0);
 }
