@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 17:05:21 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:04:22 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	init_global_struct(t_global *global, t_args *args)
 	global->timer = init_global_timer_struct();
 	if (!global->timer)
 		return (1);
-	global->fork = malloc(sizeof(t_fork));
+	global->fork = malloc(sizeof(t_mutex));
 	if (!global->fork)
 		return (1);
 	if (pthread_mutex_init(&global->fork->mutex, NULL))

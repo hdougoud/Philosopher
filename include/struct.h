@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 16:44:40 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:46:46 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,8 @@ typedef enum e_action
 typedef struct s_mutex
 {
 	pthread_mutex_t	mutex;
-	int				*var;
+	int				var;
 }	t_mutex;
-
-typedef struct s_fork
-{
-	pthread_mutex_t	mutex;
-	int				fork;
-	int				*tab;
-}	t_fork;
 
 typedef struct s_args
 {
@@ -66,7 +59,7 @@ typedef struct s_global
 {
 	t_global_timer	*timer;
 	t_args			*args;
-	t_fork			*fork;
+	t_mutex			*fork;
 	t_mutex			*is_finished;
 	t_print			*print;
 }	t_global;
@@ -75,12 +68,12 @@ typedef struct s_data
 {
 	pthread_t		thread_id;
 	int				philo_x;
-	int				last_eat;
 	t_action		action;
-	t_perso_timer	*perso_timer;
+	t_perso_timer	*last_eat;
+	t_perso_timer	*last_action;
 	t_global_timer	*global_timer;
 	t_args			*args;
-	t_fork			*fork;
+	t_mutex			*fork;
 	t_mutex			*is_finished;
 	t_print			*print;
 }	t_data;
