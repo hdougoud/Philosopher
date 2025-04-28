@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/25 18:46:46 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:43:46 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # define STRUCT_H
 
 # include <pthread.h>
+# include <sys/time.h>
 
 typedef enum e_action
 {
 	EAT = 1,
 	SLEEP = 2,
-	THINK = 3
+	THINK = 3,
 }	t_action;
 
 typedef struct s_mutex
@@ -68,10 +69,11 @@ typedef struct s_data
 {
 	pthread_t		thread_id;
 	int				philo_x;
+	int				owned_fork;
 	t_action		action;
 	t_perso_timer	*last_eat;
-	t_perso_timer	*last_action;
-	t_global_timer	*global_timer;
+	t_perso_timer	*last_action; //not used for the moment
+	t_global_timer	*gl_timer;
 	t_args			*args;
 	t_mutex			*fork;
 	t_mutex			*is_finished;

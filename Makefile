@@ -1,8 +1,9 @@
 NAME	= philo
-CC 		= cc
-FLAGS	= -Wall -Wextra -Werror
+CC 		= gcc
+FLAGS	= -Wall -Wextra -Werror -g
 
-SRCS	= main.c ft_atoi.c print_error.c utils.c memory_utils.c timer.c init.c threads.c free_all.c
+SRCS	= main.c ft_atoi.c print_error.c utils.c memory_utils.c timer.c init.c threads.c free_all.c \
+			activity.c activity_utils.c
 SRC_DIR = Sources/
 SOURCES = $(addprefix $(SRC_DIR), $(SRCS))
 

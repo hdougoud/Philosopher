@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 15:55:59 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:37:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHILO_H
 
 # include <stdio.h>
-# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -37,7 +36,6 @@ typedef struct s_perso_timer	t_perso_timer;
 typedef struct s_global_timer	t_global_timer;
 
 int				ft_atoi(const char *str);
-int				set_timer(struct timeval *tv, int *timer);
 int				join_all_thread(t_data **data, int n_threads);
 int				init_philosophers(t_data ***data, t_args *args);
 
@@ -55,7 +53,5 @@ size_t			ft_strlen(const char *str);
 /*-------------------------------- STRUCTURE ---------------------------------*/
 
 t_global_timer	*init_global_timer_struct(void);
-
-t_perso_timer	*init_personnal_timer_struct(void);
 
 #endif

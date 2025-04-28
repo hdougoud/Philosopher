@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/25 18:04:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:15:08 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	init_global_struct(t_global *global, t_args *args)
 		return (1);
 	if (pthread_mutex_init(&global->print->mutex, NULL))
 		return(1);
-	global->is_finished = 0;
+	global->fork->var = args->philosophers;
+	global->is_finished->var = 0;
 	global->args = args;
 	return (0);
 }
@@ -41,7 +42,8 @@ static int	init_global_struct(t_global *global, t_args *args)
 static void	apply_global_struct(t_data *data, t_global *global, int i)
 {
 	data->philo_x = i + 1;
-	data->global_timer = global->timer;
+	data->args = global->args;
+	data->gl_timer = global->timer;
 	data->fork = global->fork;
 	data->is_finished = global->is_finished;
 	data->print = global->print;
