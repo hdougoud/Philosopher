@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 19:06:09 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:25:26 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ static void	action_eating(t_data *data)				//make a public array of all last_mea
 static void	take_fork(t_data *data)
 {
 	pthread_mutex_lock(&data->fork->mutex);
-	if (data->fork->var > 1)
+	if (data->fork->var > 0)
 	{
-		data->fork->var -= 2;
-		data->owned_fork += 2;
-		print_activity(data, TAKEN_FORK);
+		data->fork->var -= 1;
+		data->owned_fork += 1;
 		print_activity(data, TAKEN_FORK);
 	}
 	pthread_mutex_unlock(&data->fork->mutex);
