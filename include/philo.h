@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 13:56:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:58:30 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define RED			"\x1b[31m"
 # define RED_ULTRA		"\x1b[31;1m"
+# define GREEN_ULTRA	"\x1b[32;1m"
 # define YELLOW			"\x1b[33m"
 # define YELLOW_ULTRA	"\x1b[33m;1m"
 # define RESET			"\x1b[0m"

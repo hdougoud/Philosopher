@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 15:52:16 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:59:58 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define IS_THINKING "is thinking"
 # define IS_SLEEPING "is sleeping"
 # define TAKEN_FORK "has taken a fork"
-# define SLEEP_TIME 500
+# define SLEEP_TIME 10000
 
 typedef struct s_args t_args;
 typedef struct s_data t_data;

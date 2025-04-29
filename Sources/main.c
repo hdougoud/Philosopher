@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 13:56:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:59:24 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ int	main(int argc, char **argv)
 	init_philosophers(&data, &args);
 	join_all_thread(data, args.philosophers);
 	free_all(data);
+	printf(GREEN_ULTRA"Simulation complete\n");
 	return (0);
 }
