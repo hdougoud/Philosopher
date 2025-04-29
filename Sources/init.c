@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 11:36:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 14:46:28 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ static int	init_global_struct(t_global *global, t_args *args)
 static void	apply_global_struct(t_data *data, t_global *global, int i)
 {
 	data->philo_x = i + 1;
-	data->args = global->args;
-	data->gl_timer = global->timer;
 	data->fork = global->fork;
-	data->is_finished = global->is_finished;
+	data->args = global->args;
 	data->print = global->print;
+	data->gl_timer = global->timer;
+	data->satiated = global->satiated;
+	data->is_finished = global->is_finished;
 }
 
 int	init_philosophers(t_data ***data, t_args *args)
@@ -70,7 +71,7 @@ int	init_philosophers(t_data ***data, t_args *args)
 	if (init_global_struct(&global, args))
 		return (1);
 	n_thread = args->philosophers;
-	*data = ft_calloc(n_thread, sizeof(t_data *));
+	*data = ft_calloc(n_thread + 1, sizeof(t_data *));
 	if (!*data)
 		print_error("Malloc : Allocation for **philo failed");
 	i = 0;

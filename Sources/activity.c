@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 11:41:06 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:25:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	action_thinking(t_data *data)
 {
 	check_last_meal(data);
-	if (is_ended(data->is_finished))
+	if (is_ended(data->is_finished, data->satiated, data->args))
 		return;
 	if (data->action != THINK)
 	{
@@ -34,7 +34,7 @@ static void	action_sleeping(t_data *data)
 	while (data->last_action->timer < data->args->time_to_sleep)
 	{
 		check_last_meal(data);
-		if (is_ended(data->is_finished))
+		if (is_ended(data->is_finished, data->satiated, data->args))
 			return;
 		usleep(SLEEP_TIME);
 		update_local_timer(data->last_action); 
@@ -47,7 +47,7 @@ static void	action_eating(t_data *data)				//make a public array of all last_mea
 	print_activity(data, IS_EATING);
 	reset_local_timer(data->last_eat);
 	data->eated += 1;
-	usleep(data->args->time_to_eat * 1000);
+	usleep(data->args->time_to_eat * 1000);			//what if time_to_eat == 500 && time_to_die == 250 ?
 	pthread_mutex_lock(&data->fork->mutex);
 	data->fork->var += 2;
 	data->owned_fork -= 2;
@@ -74,7 +74,7 @@ void	next_activity(t_data *data)
 {
 	while (1)
 	{
-		if (is_ended(data->is_finished))
+		if (is_ended(data->is_finished, data->satiated, data->args))
 			break ;
 		take_fork(data);
 		action_thinking(data);
