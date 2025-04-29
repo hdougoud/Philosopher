@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 13:25:17 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:06:09 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	action_thinking(t_data *data)
 {
 	check_last_meal(data);
-	if (is_ended(data->is_finished, data->satiated, data->args))
+	if (is_ended(data))
 		return;
 	if (data->action != THINK)
 	{
@@ -34,7 +34,7 @@ static void	action_sleeping(t_data *data)
 	while (data->last_action->timer < data->args->time_to_sleep)
 	{
 		check_last_meal(data);
-		if (is_ended(data->is_finished, data->satiated, data->args))
+		if (is_ended(data))
 			return;
 		usleep(SLEEP_TIME);
 		update_local_timer(data->last_action); 
@@ -74,7 +74,7 @@ void	next_activity(t_data *data)
 {
 	while (1)
 	{
-		if (is_ended(data->is_finished, data->satiated, data->args))
+		if (is_ended(data))
 			break ;
 		take_fork(data);
 		action_thinking(data);

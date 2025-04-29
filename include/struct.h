@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 11:37:25 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:00:15 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_data
 	int				philo_x;
 	int				eated;
 	int				owned_fork;
+	int				objective_complete;
 	t_action		action;
 	t_perso_timer	*last_eat;
 	t_perso_timer	*last_action; //used only for sleep, for the moment
