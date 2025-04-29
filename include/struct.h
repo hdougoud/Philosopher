@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/28 18:43:46 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:37:25 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef enum e_action
 {
+	NOTHING = 0,
 	EAT = 1,
 	SLEEP = 2,
 	THINK = 3,
@@ -61,6 +62,7 @@ typedef struct s_global
 	t_global_timer	*timer;
 	t_args			*args;
 	t_mutex			*fork;
+	t_mutex			*satiated;
 	t_mutex			*is_finished;
 	t_print			*print;
 }	t_global;
@@ -69,13 +71,15 @@ typedef struct s_data
 {
 	pthread_t		thread_id;
 	int				philo_x;
+	int				eated;
 	int				owned_fork;
 	t_action		action;
 	t_perso_timer	*last_eat;
-	t_perso_timer	*last_action; //not used for the moment
+	t_perso_timer	*last_action; //used only for sleep, for the moment
 	t_global_timer	*gl_timer;
 	t_args			*args;
 	t_mutex			*fork;
+	t_mutex			*satiated;
 	t_mutex			*is_finished;
 	t_print			*print;
 }	t_data;

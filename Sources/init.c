@@ -6,35 +6,46 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/27 21:15:08 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:36:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include "../include/struct.h"
 
+static int	init_mutex(t_mutex **mutex)
+{
+	*mutex = malloc(sizeof(t_mutex));
+	if (!*mutex)
+		return (1); //print malloc error
+	if (pthread_mutex_init(&(*mutex)->mutex, NULL))
+		return (1); //print error code
+	(*mutex)->var = 0;
+	return (0);
+}
+
 static int	init_global_struct(t_global *global, t_args *args)
 {
+	global->timer = NULL;
+	global->fork = NULL;
+	global->is_finished = NULL;
+	global->print = NULL;
+	global->satiated = NULL;
 	global->timer = init_global_timer_struct();
 	if (!global->timer)
 		return (1);
-	global->fork = malloc(sizeof(t_mutex));
-	if (!global->fork)
+	if (init_mutex(&global->fork))
 		return (1);
-	if (pthread_mutex_init(&global->fork->mutex, NULL))
-		return (1); //print error code
-	global->is_finished = malloc(sizeof(t_mutex));
-	if (!global->is_finished)
+	if (init_mutex(&global->is_finished))
 		return (1);
-	if (pthread_mutex_init(&global->is_finished->mutex, NULL))
-		return (1); //print error code
+	if (init_mutex(&global->satiated))
+		return (1);
 	global->print = malloc(sizeof(t_print));
 	if (!global->print)
 		return (1);
 	if (pthread_mutex_init(&global->print->mutex, NULL))
 		return(1);
 	global->fork->var = args->philosophers;
-	global->is_finished->var = 0;
 	global->args = args;
 	return (0);
 }

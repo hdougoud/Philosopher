@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/28 22:24:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:12:19 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define IS_THINKING "is thinking"
 # define IS_SLEEPING "is sleeping"
 # define TAKEN_FORK "has taken a fork"
+# define SLEEP_TIME 25000
 
 typedef struct s_data t_data;
 typedef struct s_mutex t_mutex;

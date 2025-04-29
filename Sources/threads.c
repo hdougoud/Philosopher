@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/28 17:55:48 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:40:05 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	*exec_thread(void *thread)
 	data = (t_data *) thread;
 	data->last_action = init_personnal_timer_struct();
 	data->last_eat = init_personnal_timer_struct();
+	data->action = NOTHING;
+	data->owned_fork = 0;
+	data->eated = 0;
 	next_activity(data);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/28 19:21:09 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:16:15 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_activity(t_data *data, char *activity)
 		return ;
 	}
 	uptade_global_timer(data->gl_timer);
-	printf("%dms %d %s\n", data->gl_timer->timer, data->philo_x, activity);
+	printf("%d %d %s\n", data->gl_timer->timer, data->philo_x, activity);
 	pthread_mutex_unlock(&data->print->mutex);
 }
 
