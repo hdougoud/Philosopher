@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 19:25:26 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:34:55 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static void	action_eating(t_data *data)				//make a public array of all last_mea
 
 static void	take_fork(t_data *data)
 {
+	check_last_meal(data);
+	if (is_ended(data))
+		return ;
 	pthread_mutex_lock(&data->fork->mutex);
-	if (data->fork->var > 0)
-	{
-		data->fork->var -= 1;
-		data->owned_fork += 1;
-		print_activity(data, TAKEN_FORK);
-	}
+	data->fork->var -= 1;
+	data->owned_fork += 1;
+	print_activity(data, TAKEN_FORK);
 	pthread_mutex_unlock(&data->fork->mutex);
 	if (data->owned_fork == 2)
 		action_eating(data);
@@ -73,9 +73,19 @@ void	next_activity(t_data *data)
 {
 	while (1)
 	{
+		check_last_meal(data);
 		if (is_ended(data))
 			break ;
-		take_fork(data);
-		action_thinking(data);
+		pthread_mutex_lock(&data->fork->mutex);
+		if (data->fork->var > 0 && data->owned_fork < 2)
+		{
+			pthread_mutex_unlock(&data->fork->mutex);
+			take_fork(data);
+		}
+		else
+		{
+			pthread_mutex_unlock(&data->fork->mutex);
+			action_thinking(data);
+		}
 	}
 }
