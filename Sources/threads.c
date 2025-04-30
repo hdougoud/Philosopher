@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 19:26:55 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:32:39 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void	*exec_thread(void *thread)
 	data->eated = 0;
 	data->objective_complete = 0;
 	if ((data->philo_x % 2) == 0)
-	{
-		printf("sleep\n");
 		usleep(50);
-	}
 	next_activity(data);
 	return (NULL);
 }
