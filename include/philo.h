@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 15:58:30 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:52:03 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_global_timer	t_global_timer;
 
 int				ft_atoi(const char *str);
 int				join_all_thread(t_data **data, int n_threads);
-int				init_philosophers(t_data ***data, t_args *args);
+int				init_philosophers(t_data ***data, t_args *args, int n_thread);
 
 char			*ft_strjoin(char const *s1, char const *s2);
 
@@ -46,13 +46,10 @@ void			free_all(t_data **data);
 void			*exec_thread(void *thread);
 void			putstr_fd(int fd, char *str);
 void			print_error(const char *str);
-// void			*execute_philo(void *pthread);
 void			*ft_calloc(size_t count, size_t size);
 void			print_error_code(const char *function, int err_code);
 
 size_t			ft_strlen(const char *str);
-
-/*-------------------------------- STRUCTURE ---------------------------------*/
 
 t_global_timer	*init_global_timer_struct(void);
 

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/30 12:50:37 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:59:10 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_global
 {
 	t_global_timer	*timer;
 	t_args			*args;
-	t_mutex			*fork;
+	t_mutex			**fork;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
 	t_print			*print;
@@ -79,7 +79,7 @@ typedef struct s_data
 	t_perso_timer	*last_action; //used only for sleep, for the moment
 	t_global_timer	*gl_timer;
 	t_args			*args;
-	t_mutex			*fork;
+	t_mutex			*right_hand;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
 	t_print			*print;

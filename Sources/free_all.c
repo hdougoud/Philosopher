@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:26:59 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/29 14:47:38 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:02:56 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	free_all(t_data **data)
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&data[i]->fork->mutex);
-	free(data[i]->fork);
+	// pthread_mutex_destroy(&data[i]->fork->mutex);
+	// free(data[i]->fork);
 	pthread_mutex_destroy(&data[i]->is_finished->mutex);
 	free(data[i]->is_finished);
 	pthread_mutex_destroy(&data[i]->satiated->mutex);
