@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 19:17:24 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/28 22:27:58 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:39:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,16 @@ t_perso_timer	*init_personnal_timer_struct(void)
 	return (perso);
 }
 
-t_global_timer	*init_global_timer_struct(void)
+struct timeval	*init_global_timer(void)
 {
-	struct timeval	tv;
-	t_global_timer	*time;
+	struct timeval	*tv;
 
-	time = malloc(sizeof(t_global_timer));
-	if (!time)
+	tv = malloc(sizeof(struct timeval));
+	if (!tv)
 		return (NULL);
-	if (gettimeofday(&tv, NULL))
+	if (gettimeofday(tv, NULL))
 		return (NULL);
-	if (pthread_mutex_init(&(time->mutex), NULL))
-		print_error("Mutex : mutex failed");
-	time->timer = 0;
-	time->tv = tv;
-	return (time);
+	return (tv);
 }
 
 int	update_local_timer(t_perso_timer *timer)
@@ -68,16 +63,16 @@ int	update_local_timer(t_perso_timer *timer)
 
 int	uptade_global_timer(t_global_timer *timer)
 {
-	int	old_sec;
-	int	old_usec;
+	int				elipsed;
+	struct timeval	temp;
 
+	elipsed = 0;
 	pthread_mutex_lock(&timer->mutex);
-	old_sec = timer->tv.tv_sec;
-	old_usec = timer->tv.tv_usec;
-	if (gettimeofday(&timer->tv, NULL))
+	if (gettimeofday(&temp, NULL))
 		return (1);
-	timer->timer += (timer->tv.tv_sec - old_sec) * 1000;
-	timer->timer += (timer->tv.tv_usec - old_usec) / 1000;
+	elipsed = (temp.tv_sec - timer->tv.tv_sec) * 1000;
+	elipsed += (temp.tv_usec - timer->tv.tv_usec) / 1000;
+	timer->timer = elipsed;
 	pthread_mutex_unlock(&timer->mutex);
 	return (0);
 }

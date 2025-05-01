@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/30 11:34:55 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/01 17:33:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,50 +23,44 @@ static void	action_thinking(t_data *data)
 		data->action = THINK;
 		print_activity(data, IS_THINKING);
 	}
-	usleep(SLEEP_TIME);
+	usleep(1000);
 }
 
 static void	action_sleeping(t_data *data)
 {
-	reset_local_timer(data->last_action);
+	reset_local_timer(data->nap_time);
 	data->action = SLEEP;
 	print_activity(data, IS_SLEEPING);
-	while (data->last_action->timer < data->args->time_to_sleep)
-	{
-		check_last_meal(data);
-		if (is_ended(data))
-			return;
-		usleep(SLEEP_TIME);
-		update_local_timer(data->last_action); 
-	}
+	usleep(data->args->time_to_sleep * 1000);
+// 	while (data->nap_time->timer < data->args->time_to_sleep)
+// 	{
+// 		check_last_meal(data);
+// 		if (is_ended(data))
+// 			return;
+// 		usleep(SLEEP_TIME);
+// 		update_local_timer(data->nap_time); 
+// 	}
 }
 
 static void	action_eating(t_data *data)				//make a public array of all last_meal(possibly wrong : philosophers can't talk with other)
 {
 	check_last_meal(data);
 	print_activity(data, IS_EATING);
-	reset_local_timer(data->last_eat);
-	data->eated += 1;
+	reset_local_timer(data->last_meal);
 	usleep(data->args->time_to_eat * 1000);			//what if time_to_eat == 500 && time_to_die == 250 ?
-	pthread_mutex_lock(&data->fork->mutex);
-	data->fork->var += 2;
-	data->owned_fork -= 2;
-	pthread_mutex_unlock(&data->fork->mutex);
+	data->eated += 1;
 	action_sleeping(data);
 }
 
-static void	take_fork(t_data *data)
+static void	action_fork(t_data *data)
 {
-	check_last_meal(data);
-	if (is_ended(data))
-		return ;
-	pthread_mutex_lock(&data->fork->mutex);
-	data->fork->var -= 1;
-	data->owned_fork += 1;
+	pthread_mutex_lock(data->right_hand);
 	print_activity(data, TAKEN_FORK);
-	pthread_mutex_unlock(&data->fork->mutex);
-	if (data->owned_fork == 2)
-		action_eating(data);
+	pthread_mutex_lock(data->left_hand);
+	print_activity(data, TAKEN_FORK);
+	action_eating(data);
+	pthread_mutex_unlock(data->left_hand);
+	pthread_mutex_unlock(data->right_hand);
 }
 
 void	next_activity(t_data *data)
@@ -74,18 +68,9 @@ void	next_activity(t_data *data)
 	while (1)
 	{
 		check_last_meal(data);
+		action_fork(data);
+		action_thinking(data);
 		if (is_ended(data))
 			break ;
-		pthread_mutex_lock(&data->fork->mutex);
-		if (data->fork->var > 0 && data->owned_fork < 2)
-		{
-			pthread_mutex_unlock(&data->fork->mutex);
-			take_fork(data);
-		}
-		else
-		{
-			pthread_mutex_unlock(&data->fork->mutex);
-			action_thinking(data);
-		}
 	}
 }

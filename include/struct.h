@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/30 16:59:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:40:30 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ typedef struct s_print
 
 typedef struct s_global
 {
-	t_global_timer	*timer;
+	struct timeval	*tv;
+	pthread_mutex_t	*fork;
+	pthread_mutex_t	print;
 	t_args			*args;
-	t_mutex			**fork;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
-	t_print			*print;
 }	t_global;
 
 typedef struct s_data
@@ -75,14 +75,15 @@ typedef struct s_data
 	int				owned_fork;
 	int				objective_complete;
 	t_action		action;
-	t_perso_timer	*last_eat;
-	t_perso_timer	*last_action; //used only for sleep, for the moment
-	t_global_timer	*gl_timer;
+	t_perso_timer	*last_meal;
+	t_perso_timer	*nap_time;
 	t_args			*args;
-	t_mutex			*right_hand;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
-	t_print			*print;
+	struct timeval	*timer;
+	pthread_mutex_t	*print;
+	pthread_mutex_t	*right_hand;
+	pthread_mutex_t	*left_hand;
 }	t_data;
 
 #endif

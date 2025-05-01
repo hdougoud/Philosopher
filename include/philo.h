@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/30 16:52:03 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/01 18:39:06 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void			print_error_code(const char *function, int err_code);
 
 size_t			ft_strlen(const char *str);
 
-t_global_timer	*init_global_timer_struct(void);
+struct timeval	*init_global_timer(void);
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/30 11:41:05 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:47:56 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/struct.h"
 #include "../include/thread.h"
 
-static int	is_everyone_ate(t_data *data)
+static int	did_everyone_eat(t_data *data)
 {
 	int	status;
 
@@ -50,29 +50,35 @@ int	is_ended(t_data *data)
 	pthread_mutex_unlock(&data->is_finished->mutex);
 	if (status == 1)
 		return (status);
-	return (is_everyone_ate(data));
+	return (did_everyone_eat(data));
 		
 }
 
 void	print_activity(t_data *data, char *activity)
 {
-	pthread_mutex_lock(&data->print->mutex);
+	int				timer;
+	struct timeval	temp;
+	
+	if (gettimeofday(&temp, NULL))
+		return ;
+	timer = (temp.tv_usec - data->timer->tv_usec) / 1000;
+	timer += (temp.tv_sec - data->timer->tv_sec) * 1000;
+	pthread_mutex_lock(data->print);
 	if (is_ended(data))
 	{
-		pthread_mutex_unlock(&data->print->mutex);
+		pthread_mutex_unlock(data->print);
 		return ;
 	}
-	uptade_global_timer(data->gl_timer);
-	printf("%d %d %s\n", data->gl_timer->timer, data->philo_x, activity);
-	pthread_mutex_unlock(&data->print->mutex);
+	printf("%dms %d %s\n", timer, data->philo_x, activity);
+	pthread_mutex_unlock(data->print);
 }
 
 void	check_last_meal(t_data *data)
 {
 	if (is_ended(data))
 		return ;
-	update_local_timer(data->last_eat);
-	if (data->last_eat->timer > data->args->time_to_die)
+	update_local_timer(data->last_meal);
+	if (data->last_meal->timer > data->args->time_to_die)
 	{
 		print_activity(data, DIED);
 		pthread_mutex_lock(&data->is_finished->mutex);
