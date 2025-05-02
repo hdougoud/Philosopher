@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:12:15 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:37:41 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*exec_thread(void *thread)
 		pthread_mutex_unlock(&data->is_finished->mutex);
 		return (NULL);
 	}
+	//protection for signle philosopher
 	data->action = NOTHING;
 	data->eated = 0;
 	data->objective_complete = 0;

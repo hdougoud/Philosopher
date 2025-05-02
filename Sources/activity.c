@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 13:48:38 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:48:38 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	action_fork(t_data *data)
 {
 	pthread_mutex_t *first;
 	pthread_mutex_t *second;
-	
+
 	if ((data->philo_x % 2) == 0)
 	{
 		first = data->right_hand;

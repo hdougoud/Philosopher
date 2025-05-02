@@ -6,13 +6,13 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 15:43:54 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 15:26:26 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:47:48 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-static void	unknow_error(const char *function) //protect multi usage
+static void	unknow_error(const char *function)
 {
 	char	*error;
 
@@ -22,7 +22,7 @@ static void	unknow_error(const char *function) //protect multi usage
 	print_error(error);
 }
 
-void	print_error_code(const char *function, int err_code) //protect multi usage
+void	print_error_code(const char *function, int err_code)
 {
 	char	*error;
 
@@ -47,7 +47,7 @@ void	print_error_code(const char *function, int err_code) //protect multi usage
 	print_error(error);
 }
 
-void	print_error(const char *str) //protect multi usage
+void	print_error(const char *str)
 {
 	char	*color;
 	char	*error;
@@ -70,5 +70,4 @@ void	print_error(const char *str) //protect multi usage
 	write(2, error, ft_strlen(error));
 	free(color);
 	free(error);
-	exit(EXIT_FAILURE); //exit is unautorised
 }

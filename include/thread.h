@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 10:41:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:39:52 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 # define TAKEN_FORK "has taken a fork"
 # define SLEEP_TIME 2000
 
-typedef struct s_args t_args;
-typedef struct s_data t_data;
-typedef struct s_mutex t_mutex;
-typedef struct s_perso_timer t_perso_timer;
-typedef struct s_global_timer t_global_timer;
+typedef struct s_args			t_args;
+typedef struct s_data			t_data;
+typedef struct s_mutex			t_mutex;
+typedef struct s_perso_timer	t_perso_timer;
+typedef struct s_global_timer	t_global_timer;
 
 int		is_ended(t_data *data);
 int		update_local_timer(struct timeval *timer);

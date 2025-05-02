@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:22:12 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:45:39 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,29 @@
 
 static int	init_mutex(t_mutex **mutex)
 {
+	int	error;
+
+	error = 0;
 	*mutex = malloc(sizeof(t_mutex));
 	if (!*mutex)
-		return (1); //print malloc error
-	if (pthread_mutex_init(&(*mutex)->mutex, NULL))
-		return (1); //print error code
+		return (print_error("Malloc : Allocation faield"), 1);
+	error = pthread_mutex_init(&(*mutex)->mutex, NULL);
+	if (error)
+		return (print_error_code("pthread create : ", error), 1);
 	(*mutex)->var = 0;
 	return (0);
 }
 
 static pthread_mutex_t	*create_fork_tab(int total)
 {
-	int	i;
-	pthread_mutex_t *forks;
+	int				i;
+	pthread_mutex_t	*forks;
 
 	i = 0;
 	forks = malloc(sizeof(pthread_mutex_t) * total);
 	if (!forks)
 		return (NULL);
-	while(i < total)
+	while (i < total)
 	{
 		if (pthread_mutex_init(&forks[i], NULL))
 			return (NULL);
@@ -81,13 +85,13 @@ static void	apply_global_struct(t_data *data, t_global *global, int i)
 	data->left_hand = &global->fork[(i + 1) % global->args->philosophers];
 }
 
-int	init_philosophers(t_data ***data, t_args *args, t_global **global, int n_thread)
+int	init_philosophers(t_data ***data, t_args *args, t_global **gl, int n_thread)
 {
 	int	i;
 	int	error_code;
 
-	(*global) = init_global_struct(args);
-	if (!*global)
+	(*gl) = init_global_struct(args);
+	if (!*gl)
 		return (1);
 	*data = ft_calloc(n_thread + 1, sizeof(t_data *));
 	if (!*data)
@@ -98,7 +102,7 @@ int	init_philosophers(t_data ***data, t_args *args, t_global **global, int n_thr
 		(*data)[i] = malloc(sizeof(t_data));
 		if (!(*data)[i])
 			print_error("Malloc : Allocation for philo[i] failed");
-		apply_global_struct((*data)[i], *global, i);
+		apply_global_struct((*data)[i], *gl, i);
 		error_code = pthread_create(&(*data)[i]->thread_id, NULL, \
 	exec_thread, (void *)(*data)[i]);
 		if (error_code)

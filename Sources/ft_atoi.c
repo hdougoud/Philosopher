@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:15:02 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 15:23:20 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:38:48 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_atoi(const char *str)
 
 	i = 0;
 	total = 0;
-	while ((str[i] >= '\t' && str[i] <= '\r') || (str[i] == ' '))
+	while ((str[i] >= '\t' && str[i] <= '\r') || (str[i] == ' ')) //protect for long
 	{
 		if ((str[i] != '+' && str[i] != '-') && (str[i] < '0' && str[i] > '9'))
 			return (putstr_fd(2, RED"Only number allowed\n"RESET), -1);

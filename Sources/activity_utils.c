@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 13:50:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:47:04 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ int	is_ended(t_data *data)
 	status = did_everyone_eat(data);
 	pthread_mutex_unlock(&data->is_finished->mutex);
 	return (status);
-		
 }
 
 void	print_activity(t_data *data, char *activity)
 {
 	int				timer;
 	struct timeval	temp;
-	
+
 	if (gettimeofday(&temp, NULL))
 		return ;
 	timer = (temp.tv_usec - data->timer->tv_usec) / 1000;
@@ -72,8 +71,8 @@ void	print_activity(t_data *data, char *activity)
 
 void	check_last_meal(t_data *data)
 {
-	int timer;
-	
+	int	timer;
+
 	if (is_ended(data))
 		return ;
 	timer = update_local_timer(&data->last_meal);
