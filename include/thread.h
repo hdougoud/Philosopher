@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/01 17:17:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:41:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <unistd.h>
 # include <sys/time.h>
 
 # define DIED "died"
@@ -31,15 +32,12 @@ typedef struct s_mutex t_mutex;
 typedef struct s_perso_timer t_perso_timer;
 typedef struct s_global_timer t_global_timer;
 
-int				is_ended(t_data *data);
-int				update_local_timer(t_perso_timer *timer);
-int				uptade_global_timer(t_global_timer *timer);
+int		is_ended(t_data *data);
+int		update_local_timer(struct timeval *timer);
 
-void			next_activity(t_data *data);
-void			check_last_meal(t_data *data);
-void			reset_local_timer(t_perso_timer *timer);
-void			print_activity(t_data *data, char *activity);
-
-t_perso_timer	*init_personnal_timer_struct(void);
+void	next_activity(t_data *data);
+void	check_last_meal(t_data *data);
+void	reset_local_timer(t_perso_timer *timer);
+void	print_activity(t_data *data, char *activity);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/01 19:47:56 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:41:58 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ void	print_activity(t_data *data, char *activity)
 
 void	check_last_meal(t_data *data)
 {
+	int timer;
+	
 	if (is_ended(data))
 		return ;
-	update_local_timer(data->last_meal);
-	if (data->last_meal->timer > data->args->time_to_die)
+	timer = update_local_timer(data->last_meal);
+	if (timer > data->args->time_to_die)
 	{
 		print_activity(data, DIED);
 		pthread_mutex_lock(&data->is_finished->mutex);

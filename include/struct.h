@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/01 18:40:30 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:46:01 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,6 @@ typedef struct s_args
 	int		must_eat;
 }	t_args;
 
-typedef struct s_global_timer
-{
-	pthread_mutex_t	mutex;
-	int				timer;
-	struct timeval	tv;
-}	t_global_timer;
-
-typedef struct s_perso_timer
-{
-	int				timer;
-	struct timeval	tv;
-}	t_perso_timer;
-
 typedef struct s_print
 {
 	pthread_mutex_t	mutex;
@@ -72,14 +59,13 @@ typedef struct s_data
 	pthread_t		thread_id;
 	int				philo_x;
 	int				eated;
-	int				owned_fork;
 	int				objective_complete;
 	t_action		action;
-	t_perso_timer	*last_meal;
-	t_perso_timer	*nap_time;
 	t_args			*args;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
+	struct timeval	*last_meal;
+	struct timeval	*nap_time;
 	struct timeval	*timer;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*right_hand;

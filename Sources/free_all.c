@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:26:59 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/01 19:47:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 10:51:30 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	free_all(t_data **data)
 	pthread_mutex_destroy(data[i]->right_hand);
 	while (data[i])
 	{
-		free(data[i]->nap_time);
-		free(data[i]->last_meal);
 		free(data[i]);
 		i++;
 	}
