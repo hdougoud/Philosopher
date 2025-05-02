@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/01 18:39:06 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:22:46 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,21 @@
 # define YELLOW_ULTRA	"\x1b[33m;1m"
 # define RESET			"\x1b[0m"
 
-typedef struct s_args			t_args;
-typedef struct s_data			t_data;
-typedef struct s_perso_timer	t_perso_timer;
-typedef struct s_global_timer	t_global_timer;
+typedef struct s_args	t_args;
+typedef struct s_data	t_data;
+typedef struct s_global	t_global;
 
 int				ft_atoi(const char *str);
 int				join_all_thread(t_data **data, int n_threads);
-int				init_philosophers(t_data ***data, t_args *args, int n_thread);
+int				init_philosophers(t_data ***data, t_args *args, t_global **global, int n_thread);
 
 char			*ft_strjoin(char const *s1, char const *s2);
 
-void			free_all(t_data **data);
 void			*exec_thread(void *thread);
 void			putstr_fd(int fd, char *str);
 void			print_error(const char *str);
 void			*ft_calloc(size_t count, size_t size);
+void			free_all(t_data **data, t_global *global);
 void			print_error_code(const char *function, int err_code);
 
 size_t			ft_strlen(const char *str);

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/30 16:52:26 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:21:47 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,18 @@ static int	check_args(int argc)
 
 int	main(int argc, char **argv)
 {
-	t_data	**data;
-	t_args	args;
+	t_args		args;
+	t_data		**data;
+	t_global	*global;
 
 	data = NULL;
 	if (check_args(argc))
 		return (1);
 	if (convert_numbers(&args, argc, argv))
 		return (1);
-	init_philosophers(&data, &args, args.philosophers);
+	init_philosophers(&data, &args, &global, args.philosophers);
 	join_all_thread(data, args.philosophers);
-	free_all(data);
-	printf(GREEN_ULTRA"Simulation complete\n");
+	free_all(data, global);
+	printf(GREEN_ULTRA"Simulation complete\n"RESET);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 10:50:01 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:12:15 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,22 @@
 
 void	*exec_thread(void *thread)
 {
+	int		status;
 	t_data	*data;
-	struct timeval	last_meal;
-	struct timeval	nap_time;
 
+	status = 0;
 	data = (t_data *) thread;
-	if (gettimeofday(&last_meal, NULL))
+	if (gettimeofday(&data->last_meal, NULL))
+		status = 1;
+	if (gettimeofday(&data->nap_time, NULL))
+		status = 1;
+	if (status == 1)
+	{
+		pthread_mutex_lock(&data->is_finished->mutex);
+		data->is_finished->var = 1;
+		pthread_mutex_unlock(&data->is_finished->mutex);
 		return (NULL);
-	if (gettimeofday(&nap_time, NULL))
-		return (NULL);
-	data->last_meal = &last_meal;
-	data->nap_time = &nap_time;
+	}
 	data->action = NOTHING;
 	data->eated = 0;
 	data->objective_complete = 0;

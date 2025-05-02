@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 10:46:01 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 11:48:40 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_data
 	t_args			*args;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
-	struct timeval	*last_meal;
-	struct timeval	*nap_time;
+	struct timeval	last_meal;
+	struct timeval	nap_time;
 	struct timeval	*timer;
 	pthread_mutex_t	*print;
 	pthread_mutex_t	*right_hand;

@@ -6,14 +6,14 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:26:59 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 10:51:30 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:19:52 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include "../include/struct.h"
 
-void	free_all(t_data **data)
+void	free_all(t_data **data, t_global *global)
 {
 	int	i;
 
@@ -31,6 +31,8 @@ void	free_all(t_data **data)
 		i++;
 	}
 	free(data);
+	free(global->fork);
+	free(global);
 }
 
 int	join_all_thread(t_data **data, int n_threads)

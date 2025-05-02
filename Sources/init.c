@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/01 18:40:47 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 14:22:12 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static pthread_mutex_t	*create_fork_tab(int total)
 	{
 		if (pthread_mutex_init(&forks[i], NULL))
 			return (NULL);
-		i++; //when we alocate a fork to a data[i], alocate n philo - 1 to the left
+		i++;
 	}
 	return (forks);
 }
@@ -81,14 +81,13 @@ static void	apply_global_struct(t_data *data, t_global *global, int i)
 	data->left_hand = &global->fork[(i + 1) % global->args->philosophers];
 }
 
-int	init_philosophers(t_data ***data, t_args *args, int n_thread)
+int	init_philosophers(t_data ***data, t_args *args, t_global **global, int n_thread)
 {
-	int			i;
-	int			error_code;
-	t_global	*global;
+	int	i;
+	int	error_code;
 
-	global = init_global_struct(args);
-	if (!global)
+	(*global) = init_global_struct(args);
+	if (!*global)
 		return (1);
 	*data = ft_calloc(n_thread + 1, sizeof(t_data *));
 	if (!*data)
@@ -99,7 +98,7 @@ int	init_philosophers(t_data ***data, t_args *args, int n_thread)
 		(*data)[i] = malloc(sizeof(t_data));
 		if (!(*data)[i])
 			print_error("Malloc : Allocation for philo[i] failed");
-		apply_global_struct((*data)[i], global, i);
+		apply_global_struct((*data)[i], *global, i);
 		error_code = pthread_create(&(*data)[i]->thread_id, NULL, \
 	exec_thread, (void *)(*data)[i]);
 		if (error_code)
