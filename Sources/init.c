@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:43:21 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:45:39 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 17:45:50 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ int	init_philosophers(t_data ***data, t_args *args, t_global **gl, int n_thread)
 		if (!(*data)[i])
 			print_error("Malloc : Allocation for philo[i] failed");
 		apply_global_struct((*data)[i], *gl, i);
-		error_code = pthread_create(&(*data)[i]->thread_id, NULL, \
-	exec_thread, (void *)(*data)[i]);
+		error_code = pthread_create(&(*data)[i]->thread_id, NULL,
+				exec_thread, (void *)(*data)[i]);
 		if (error_code)
 			print_error_code("Pthread failed : ", error_code);
 		i++;

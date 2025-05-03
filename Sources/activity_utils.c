@@ -6,12 +6,26 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:47:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:38:54 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/struct.h"
 #include "../include/thread.h"
+
+void	thread_error(t_data *data, char *str)
+{
+	if (is_ended(data))
+		return ;
+	pthread_mutex_lock(data->print);
+	putstr_fd(2, RED_ULTRA"Thread Error : ");
+	putstr_fd(2, str);
+	putstr_fd(2, YELLOW_ULTRA"\nExit program\n"RESET);
+	pthread_mutex_unlock(data->print);
+	pthread_mutex_lock(&data->is_finished->mutex);
+	data->is_finished->var = 1;
+	pthread_mutex_unlock(&data->is_finished->mutex);
+}
 
 static int	did_everyone_eat(t_data *data)
 {
@@ -60,7 +74,7 @@ void	print_activity(t_data *data, char *activity)
 	struct timeval	temp;
 
 	if (gettimeofday(&temp, NULL))
-		return ;
+		thread_error(data, "gettimeofday failed");
 	timer = (temp.tv_usec - data->timer->tv_usec) / 1000;
 	timer += (temp.tv_sec - data->timer->tv_sec) * 1000;
 	pthread_mutex_lock(data->print);

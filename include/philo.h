@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:48:51 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:31:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define RED_ULTRA		"\x1b[31;1m"
 # define GREEN_ULTRA	"\x1b[32;1m"
 # define YELLOW			"\x1b[33m"
-# define YELLOW_ULTRA	"\x1b[33m;1m"
+# define YELLOW_ULTRA	"\x1b[33;1m"
 # define RESET			"\x1b[0m"
 
 typedef struct s_args	t_args;

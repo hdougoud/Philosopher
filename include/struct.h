@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 11:48:40 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:20:36 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 
 # include <pthread.h>
 # include <sys/time.h>
-
-typedef enum e_action
-{
-	NOTHING = 0,
-	EAT = 1,
-	SLEEP = 2,
-	THINK = 3,
-}	t_action;
 
 typedef struct s_mutex
 {
@@ -60,7 +52,6 @@ typedef struct s_data
 	int				philo_x;
 	int				eated;
 	int				objective_complete;
-	t_action		action;
 	t_args			*args;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;

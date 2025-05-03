@@ -6,20 +6,29 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:15:02 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:38:48 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/03 13:29:53 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+static int	is_total_too_high(long total)
+{
+	if (total > 2147483647)
+		return (putstr_fd(2, RED"Number is too high\n"RESET), -1);
+	return ((int)total);
+}
+
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	total;
+	int		i;
+	long	total;
 
 	i = 0;
 	total = 0;
-	while ((str[i] >= '\t' && str[i] <= '\r') || (str[i] == ' ')) //protect for long
+	if (ft_strlen(str) > 12)
+		return (putstr_fd(2, RED"Number is too high\n"RESET), -1);
+	while ((str[i] >= '\t' && str[i] <= '\r') || (str[i] == ' '))
 	{
 		if ((str[i] != '+' && str[i] != '-') && (str[i] < '0' && str[i] > '9'))
 			return (putstr_fd(2, RED"Only number allowed\n"RESET), -1);
@@ -36,5 +45,5 @@ int	ft_atoi(const char *str)
 	}
 	if (str[i])
 		return (putstr_fd(2, RED"Only number allowed\n"RESET), -1);
-	return (total);
+	return (is_total_too_high(total));
 }
