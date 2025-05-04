@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 18:31:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/04 15:04:36 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <errno.h>
-
-# ifndef PTHREAD_THREADS_MAX
-#  define PTHREAD_THREADS_MAX 1024
-# endif
 
 # define RED			"\x1b[31m"
 # define RED_ULTRA		"\x1b[31;1m"
