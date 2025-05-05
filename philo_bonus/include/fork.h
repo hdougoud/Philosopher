@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:37:10 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/05 13:46:13 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:57:57 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@
 #include <unistd.h>
 #include <semaphore.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+typedef struct s_data t_data;
 
 void	putstr_fd(int fd, char *str);
+void	start_fork(t_data *data, int philo_n);
 
 #endif

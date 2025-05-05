@@ -29,6 +29,8 @@ fclean: clean
 
 re: fclean all
 
+bonus:
+	$(MAKE) -C philo_bonus
 
 .PHONY: all clean fclean re
 
