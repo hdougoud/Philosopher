@@ -6,11 +6,11 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 17:13:59 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/04/24 15:23:45 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:19:21 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include <stdlib.h>
 
 static void	ft_bzero(void *s, size_t n)
 {

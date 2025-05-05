@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:20:58 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/04 15:35:54 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:47:41 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,14 @@ static int	check_args(int argc)
 int	main(int argc, char **argv)
 {
 	t_args	args;
+	t_data	data;
 	
 	if (check_args(argc))
 		return (1);
 	if (convert_numbers(&args, argc, argv))
 		return (1);
-	
+	if (init_data(&data, &args))
+		return ((close_all(&data)), 1);
+	start_monitoring(&data);
+	close_all(&data);
 }
