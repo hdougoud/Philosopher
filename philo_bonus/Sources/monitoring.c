@@ -6,12 +6,13 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:36:40 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/05 20:45:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 09:03:49 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fork.h"
 #include "../include/struct.h"
+#include <sys/wait.h>
 
 void	wait_pids(pid_t *pid)
 {

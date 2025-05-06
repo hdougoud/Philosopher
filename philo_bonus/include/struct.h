@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 15:32:02 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/05 18:35:30 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:16:56 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,21 @@ typedef struct s_args
 	int		must_eat;
 }	t_args;
 
+typedef struct s_fork
+{
+	int				philo_n;
+	int				meal_count;
+	struct timeval	last_meal;
+	struct timeval	last_nap;
+}	t_fork;
+
 typedef struct s_data
 {
-	t_args	*args;
-	sem_t	*fork;
-	sem_t	*print;
-	sem_t	*satiated;
-	sem_t	*timer;
-	struct timeval tv;
+	t_args			*args;
+	sem_t			*fork;
+	sem_t			*print;
+	sem_t			*satiated;
+	struct timeval	timer;
 }	t_data;
 
 #endif

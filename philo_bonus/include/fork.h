@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:37:10 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/05 20:43:09 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:49:19 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # define YELLOW	"\x1b[33;1m"
 # define RESET	"\x1b[0m"
 
+# define DIED "died"
+# define IS_EATING "is eating"
+# define IS_THINKING "is thinking"
+# define IS_SLEEPING "is sleeping"
+# define TAKEN_FORK "has taken a fork"
+
 #include <unistd.h>
 #include <semaphore.h>
 #include <stdlib.h>
@@ -26,8 +32,10 @@
 #include <signal.h>
 
 typedef struct s_data t_data;
+typedef struct s_fork t_fork;
 
 void	putstr_fd(int fd, char *str);
 void	start_fork(t_data *data, int philo_n);
+void	print_activity(t_data *data, t_fork *forks, char *activity);
 
 #endif

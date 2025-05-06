@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 18:32:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:24:57 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define IS_THINKING "is thinking"
 # define IS_SLEEPING "is sleeping"
 # define TAKEN_FORK "has taken a fork"
-# define SLEEP_TIME 2000
 
 # define RED_ULTRA		"\x1b[31;1m"
 # define YELLOW_ULTRA	"\x1b[33;1m"
