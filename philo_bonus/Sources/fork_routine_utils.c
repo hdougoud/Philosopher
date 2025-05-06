@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:20:27 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 13:48:28 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:57:07 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	exit_fork(char *str)
 
 void	check_last_meal(t_data *data, t_fork *forks)
 {
-	int	elipsed;
-	struct timeval new;
+	int				elipsed;
+	struct timeval	new;
 
 	elipsed = 0;
 	if (gettimeofday(&new, NULL))

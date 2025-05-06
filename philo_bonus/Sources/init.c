@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 12:41:29 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 09:54:05 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:13:00 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	init_sempahore(t_data *data, int n_philo)
 		putstr_fd(2, RED"sem_fork : open failed\n"YELLOW"Exit Program\n"RESET);
 		return (1);
 	}
-	data->fork = sem_open("/sem_satiated", O_CREAT | O_EXCL, 0644, data->args->must_eat);
+	data->satiated = sem_open("/sem_satiated", O_CREAT | O_EXCL, 0644, data->args->must_eat);
 	if (data->fork == SEM_FAILED)
 	{
 		putstr_fd(2, RED"sem_fork : open failed\n"YELLOW"Exit Program\n"RESET);

@@ -6,23 +6,25 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:11:29 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 13:48:11 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 14:17:13 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fork.h"
 #include "../include/struct.h"
 
-static void	action_thinking(t_data *data, t_fork *forks)
+static void	is_satiated(t_data *data, t_fork *forks)
 {
-	check_last_meal(data, forks);
-	print_activity(data, forks, IS_THINKING);
-	usleep(1000);
+	if (!data->args->must_eat)
+		return ;
+	if (data->args->must_eat == forks->meal_count)
+		exit(EXIT_SUCCESS);
+	
 }
 
 static void	action_sleeping(t_data *data, t_fork *forks)
 {
-	int	elipsed;
+	int				elipsed;
 	struct timeval	new;
 
 	elipsed = 0;
@@ -42,7 +44,7 @@ static void	action_sleeping(t_data *data, t_fork *forks)
 
 static void	action_eating(t_data *data, t_fork *forks)
 {
-	int	elipsed;
+	int				elipsed;
 	struct timeval	new;
 	
 	elipsed = 0;
@@ -63,6 +65,7 @@ static void	action_eating(t_data *data, t_fork *forks)
 		elipsed += (new.tv_usec - forks->last_meal.tv_usec) / 1000;
 		check_last_meal(data, forks);
 	}
+	is_satiated(data, forks);
 }
 
 static void	action_fork(t_data *data, t_fork *forks)
@@ -79,8 +82,12 @@ static void	action_fork(t_data *data, t_fork *forks)
 
 void	next_action(t_data *data, t_fork *forks)
 {
-	check_last_meal(data, forks);
-	action_fork(data, forks);
-	action_thinking(data, forks);
-	
+	while (1)
+	{
+		check_last_meal(data, forks);
+		action_fork(data, forks);
+		check_last_meal(data, forks);
+		print_activity(data, forks, IS_THINKING);
+		usleep(1000);
+	}
 }
