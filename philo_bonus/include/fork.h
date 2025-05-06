@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:37:10 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/05 14:57:57 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:43:09 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include <semaphore.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <sys/time.h>
+#include <signal.h>
 
 typedef struct s_data t_data;
 

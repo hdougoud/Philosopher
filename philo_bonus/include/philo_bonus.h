@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 15:02:31 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/05 13:47:24 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/05 15:22:11 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <semaphore.h>
+#include <sys/time.h>
 
 typedef struct s_args t_args;
 typedef struct s_data t_data;
