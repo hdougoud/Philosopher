@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 14:21:47 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:00:30 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	main(int argc, char **argv)
 		return (1);
 	init_philosophers(&data, &args, &global, args.philosophers);
 	join_all_thread(data, args.philosophers);
+	if (data[0]->objective_complete == 1)
+		printf(GREEN_ULTRA"Simulation complete\n"RESET);
+	else
+		printf(RED_ULTRA"A philosopher is dead\n"RESET);
 	free_all(data, global);
-	printf(GREEN_ULTRA"Simulation complete\n"RESET);
 	return (0);
 }
