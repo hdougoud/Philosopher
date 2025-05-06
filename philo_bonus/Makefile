@@ -2,7 +2,8 @@ NAME	= philo_bonus
 CC 		= gcc
 FLAGS	= -Wall -Wextra -Werror -g
 
-SRCS	= main.c ft_atoi.c utils.c init.c memory_utils.c close.c monitoring.c fork.c routine_utils.c
+SRCS	= main.c ft_atoi.c utils.c init.c memory_utils.c close.c monitoring.c fork.c \
+			fork_routine_utils.c fork_routine.c
 SRC_DIR = Sources/
 SOURCES = $(addprefix $(SRC_DIR), $(SRCS))
 

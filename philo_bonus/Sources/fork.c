@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:47:26 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 10:52:43 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:37:51 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	start_fork(t_data *data, int philo_n)
 	print_activity(data, &forks, "test");
 	usleep(100000);
 	print_activity(data, &forks, "test2");
+	next_action(data, &forks);
 	exit(EXIT_SUCCESS);
 }
