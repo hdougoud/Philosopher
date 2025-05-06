@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:11:29 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 13:38:52 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:48:11 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void	action_sleeping(t_data *data, t_fork *forks)
 	elipsed = 0;
 	print_activity(data, forks, IS_SLEEPING);
 	if (gettimeofday(&forks->last_nap, NULL))
-		exit(EXIT_FAILURE);
+		exit_fork("gettimeofday failed");
 	while (elipsed < data->args->time_to_sleep)
 	{
 		usleep(1000);
 		if (gettimeofday(&new, NULL))
-			exit(EXIT_FAILURE);
+			exit_fork("gettimeofday failed");
 		elipsed = (new.tv_sec - forks->last_nap.tv_sec) * 1000;
 		elipsed += (new.tv_usec - forks->last_nap.tv_usec) / 1000;
 		check_last_meal(data, forks);
@@ -49,12 +49,16 @@ static void	action_eating(t_data *data, t_fork *forks)
 	print_activity(data, forks, IS_EATING);
 	forks->meal_count += 1;
 	if (gettimeofday(&forks->last_meal, NULL))
-		exit(EXIT_FAILURE);
+		exit_fork("gettimeofday failed");
 	while (elipsed < data->args->time_to_eat)
 	{
 		usleep(1000);
 		if (gettimeofday(&new, NULL))
-			exit(EXIT_FAILURE); //dont forget sem_post
+		{
+			sem_post(data->fork);
+			sem_post(data->fork);
+			exit_fork("gettimeofday failed");
+		}
 		elipsed = (new.tv_sec - forks->last_meal.tv_sec) * 1000;
 		elipsed += (new.tv_usec - forks->last_meal.tv_usec) / 1000;
 		check_last_meal(data, forks);
