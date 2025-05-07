@@ -6,14 +6,14 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 14:48:19 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:11:10 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/struct.h"
 #include "../include/thread.h"
 
-static void	action_sleeping(t_data *data)
+static void	action_sleeping(t_philo *philo)
 {
 	int		timer;
 
@@ -35,7 +35,7 @@ static void	action_sleeping(t_data *data)
 	}
 }
 
-static void	action_eating(t_data *data)
+static void	action_eating(t_philo *philo)
 {
 	int	timer;
 
@@ -56,7 +56,7 @@ static void	action_eating(t_data *data)
 	}
 }
 
-static void	fork_availability(t_fork *fork, int action, t_data *data)
+static void	fork_availability(t_fork *fork, int action, t_philo *philo)
 {
 	if (is_ended(data))
 		return ;
@@ -83,7 +83,7 @@ static void	fork_availability(t_fork *fork, int action, t_data *data)
 	}
 }
 
-static void	action_fork(t_data *data)
+static void	action_fork(t_philo *philo)
 {
 	t_fork	*first;
 	t_fork	*second;
@@ -108,7 +108,7 @@ static void	action_fork(t_data *data)
 	action_sleeping(data);
 }
 
-void	next_activity(t_data *data)
+void	next_activity(t_philo *philo)
 {
 	while (1)
 	{

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 19:19:06 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:46:22 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include <errno.h>
 
 # define RED			"\x1b[31m"
 # define RED_ULTRA		"\x1b[31;1m"
@@ -40,7 +39,6 @@ void			*exec_thread(void *thread);
 void			putstr_fd(int fd, const char *str);
 // void			free_global_struct(t_global *global);
 void			*ft_calloc(size_t count, size_t size);
-void			print_error_code(const char *function, int err_code);
 // void			free_all(t_data **data, t_global *global);
 
 //struct timeval	*init_global_timer(void);

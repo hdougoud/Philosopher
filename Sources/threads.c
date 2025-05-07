@@ -6,45 +6,37 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 14:40:42 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:18:44 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/thread.h"
 #include "../include/struct.h"
 
-static int	(init_thread(t_data *data))
+static int	(init_thread(t_philo *philo))
 {
-	int	status;
-
-	status = 0;
-	data->eated = 0;
-	data->objective_complete = 0;
-	if (gettimeofday(&data->last_meal, NULL))
-		status = 1;
-	if (gettimeofday(&data->nap_time, NULL))
-		status = 1;
-	if (status == 1)
-		thread_error(data, "gettimeofday failed");
-	return (status);
+	if (gettimeofday(&philo->nap_time, NULL))
+		return (thread_error(philo, "gettimeofday failed"), 1);
+	return (0);
 }
 
 void	*exec_thread(void *thread)
 {
-	t_data	*data;
+	t_philo	*philo;
 
-	data = (t_data *) thread;
-	if (init_thread(data))
+	philo = (t_philo*) thread;
+	if (init_thread(philo))
 		return (NULL);
-	if (data->args->philosophers == 1)
+	if (philo->id == 1)
 	{
-		print_activity(data, TAKEN_FORK);
-		usleep(data->args->time_to_die * 1000);
-		print_activity(data, DIED);
+		print_activity(philo, TAKEN_FORK);
+		usleep(philo->data->time_to_die * 1000);
+		print_activity(philo, DIED);
 		return (NULL);
 	}
-	if ((data->philo_x % 2) == 0)
+	if ((philo->id % 2) == 0)
 		usleep(50);
-	next_activity(data);
+	return (NULL);
+	//next_activity(data);
 	return (NULL);
 }

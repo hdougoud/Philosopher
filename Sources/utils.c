@@ -6,11 +6,19 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:01:46 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 19:13:39 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 21:49:43 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	print_error(const char *str)
+{
+	putstr_fd(2, RED"Error\n");
+	putstr_fd(2, str);
+	putstr_fd(2,YELLOW"\nExit Program\n"RESET);
+	return (1);
+}
 
 static void	ft_bzero(void *s, size_t n)
 {
