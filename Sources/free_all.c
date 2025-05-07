@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 15:26:59 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 17:03:47 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:17:10 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,6 @@ void	free_all(t_data **data, t_global *global)
 		safe_free((void **)&data[i]);
 	}
 	safe_free((void **)&data);
-	free_global_struct(global);
-}
-
-int	join_all_thread(t_data **data, int n_threads)
-{
-	int	i;
-	int	error_code;
-
-	i = 0;
-	while (i < n_threads)
-	{
-		error_code = pthread_join(data[i]->thread_id, NULL);
-		if (error_code)
-			print_error_code("pthread_join : ", error_code);
-		i++;
-	}
-	return (0);
+	safe_free((void **)&global->fork);
+	safe_free((void **)&global);
 }

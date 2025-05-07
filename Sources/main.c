@@ -6,32 +6,37 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 15:59:28 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:12:36 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include "../include/struct.h"
 
-static int	convert_numbers(t_args *args, int argc, char **argv)
+static int convert_numbers(t_data *data, int argc, char **argv)
 {
-	args->philosophers = ft_atoi(argv[1]);
-	args->time_to_die = ft_atoi(argv[2]);
-	args->time_to_eat = ft_atoi(argv[3]);
-	args->time_to_sleep = ft_atoi(argv[4]);
-	args->must_eat = 0;
-	if (args->philosophers == -1 || args->time_to_die == -1
-		|| args->time_to_eat == -1 || args->time_to_sleep == -1)
+	data->philosophers = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->must_eat = 0;
+	if (data->philosophers == -1 || data->time_to_die == -1
+		|| data->time_to_eat == -1 || data->time_to_sleep == -1)
 		return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	if (argc == 6)
 	{
-		args->must_eat = ft_atoi(argv[5]);
-		if (args->must_eat == -1)
+		data->must_eat = ft_atoi(argv[5]);
+		if (data->must_eat == -1)
 			return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	}
-	if (args->philosophers < 1)
+	if (data->philosophers < 1)
 	{
 		putstr_fd(2, RED"Not enough philosophers\n"YELLOW"Exit Program\n"RESET);
+		return (1);
+	}
+	if (data->philosophers > 200)
+	{
+		putstr_fd(2, RED"Too much philosophers\n"YELLOW"Exit Program\n"RESET);
 		return (1);
 	}
 	return (0);
@@ -54,24 +59,13 @@ static int	check_args(int argc)
 
 int	main(int argc, char **argv)
 {
-	t_args			args;
-	t_data			**data;
-	t_global		*global;
+	t_data	data;
 
-	data = NULL;
-	global = NULL;
+	(void) data;
 	if (check_args(argc))
 		return (1);
-	if (convert_numbers(&args, argc, argv))
+	if (convert_numbers(&data, argc, argv))
 		return (1);
-	if (!init_philosophers(&data, &args, &global, args.philosophers))
-	{
-		join_all_thread(data, args.philosophers);
-		if (data[0]->objective_complete == 1)
-			putstr_fd(1, GREEN_ULTRA"Simulation complete\n"RESET);
-		else
-			putstr_fd(2, RED_ULTRA"A philosopher is dead\n"RESET);
-	}
-	free_all(data, global);
-	return (0);
+	if (init_philosophers(&data))
+		return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 15:59:20 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:14:48 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,51 +28,33 @@ typedef struct	s_fork
 	int				used;
 }	t_fork;
 
-typedef struct last_meal
-{
-	pthread_mutex_t	mutex;
-	struct timeval	tv;
-}	t_last_meal;
-
-typedef struct s_args
-{
-	int		philosophers;
-	int		time_to_eat;
-	int		time_to_die;
-	int		time_to_sleep;
-	int		must_eat;
-}	t_args;
-
 typedef struct s_print
 {
 	pthread_mutex_t	mutex;
 }	t_print;
 
-typedef struct s_global
-{
-	struct timeval	*tv;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	print;
-	t_args			*args;
-	t_mutex			*satiated;
-	t_mutex			*is_finished;
-}	t_global;
-
-typedef struct s_data
+typedef struct s_philo
 {
 	pthread_t		thread_id;
 	int				philo_x;
-	int				eated;
-	int				objective_complete;
-	t_args			*args;
-	t_mutex			*satiated;
-	t_mutex			*is_finished;
+	int				meals;
 	t_fork			*right_hand;
 	t_fork			*left_hand;
-	struct timeval	last_meal;
 	struct timeval	nap_time;
+}	t_philo;
+
+typedef struct s_data
+{
+	int				philosophers;
+	int				time_to_eat;
+	int				time_to_die;
+	int				time_to_sleep;
+	int				must_eat;
+	t_mutex			death_check;
+	t_mutex			satiated;
 	struct timeval	*timer;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	print;
+	t_philo			*philo;
 }	t_data;
 
 #endif

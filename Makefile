@@ -2,8 +2,7 @@ NAME	= philo
 CC 		= gcc
 FLAGS	= -Wall -Wextra -Werror -g
 
-SRCS	= main.c ft_atoi.c print_error.c utils.c timer.c init.c threads.c free_all.c \
-			activity.c activity_utils.c
+SRCS	= main.c ft_atoi.c utils.c init.c print_error.c
 SRC_DIR = Sources/
 SOURCES = $(addprefix $(SRC_DIR), $(SRCS))
 

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:36:40 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 15:32:51 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:12:47 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	start_monitoring(t_data *data)
 {
 	pid_t	*pids;
 
-	pids = calloc(data->args->philosophers + 1, sizeof(pid_t));
+	pids = ft_calloc(data->args->philosophers + 1, sizeof(pid_t));
 	if (!pids)
 	{
 		putstr_fd(2, RED"Malloc PID failed\n"YELLOW"Exit Program\n"RESET);
