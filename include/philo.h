@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/04 15:04:36 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 17:28:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int				init_philosophers(t_data ***data, t_args *args, t_global **gl,
 char			*ft_strjoin(char const *s1, char const *s2);
 
 void			*exec_thread(void *thread);
-void			putstr_fd(int fd, char *str);
 void			print_error(const char *str);
+void			putstr_fd(int fd, const char *str);
+void			free_global_struct(t_global *global);
 void			*ft_calloc(size_t count, size_t size);
 void			free_all(t_data **data, t_global *global);
 void			print_error_code(const char *function, int err_code);

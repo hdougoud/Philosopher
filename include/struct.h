@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 10:46:05 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:59:20 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ typedef struct s_mutex
 	pthread_mutex_t	mutex;
 	int				var;
 }	t_mutex;
+
+typedef struct	s_fork
+{
+	pthread_mutex_t	*mutex;
+	int				used;
+}	t_fork;
+
+typedef struct last_meal
+{
+	pthread_mutex_t	mutex;
+	struct timeval	tv;
+}	t_last_meal;
 
 typedef struct s_args
 {
@@ -55,12 +67,12 @@ typedef struct s_data
 	t_args			*args;
 	t_mutex			*satiated;
 	t_mutex			*is_finished;
+	t_fork			*right_hand;
+	t_fork			*left_hand;
 	struct timeval	last_meal;
 	struct timeval	nap_time;
 	struct timeval	*timer;
 	pthread_mutex_t	*print;
-	pthread_mutex_t	*right_hand;
-	pthread_mutex_t	*left_hand;
 }	t_data;
 
 #endif

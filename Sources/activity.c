@@ -6,21 +6,12 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/03 13:28:47 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:48:19 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/struct.h"
 #include "../include/thread.h"
-
-static void	action_thinking(t_data *data)
-{
-	check_last_meal(data);
-	if (is_ended(data))
-		return ;
-	print_activity(data, IS_THINKING);
-	usleep(1000);
-}
 
 static void	action_sleeping(t_data *data)
 {
@@ -56,7 +47,7 @@ static void	action_eating(t_data *data)
 	while (timer < data->args->time_to_eat)
 	{
 		usleep(1000);
-		timer = update_local_timer(&data->nap_time);
+		timer = update_local_timer(&data->last_meal);
 		if (timer == -1)
 			thread_error(data, "update timer failed");
 		check_last_meal(data);
@@ -65,10 +56,37 @@ static void	action_eating(t_data *data)
 	}
 }
 
+static void	fork_availability(t_fork *fork, int action, t_data *data)
+{
+	if (is_ended(data))
+		return ;
+	while (1)
+	{
+		pthread_mutex_lock(fork->mutex);
+		if (fork->used == 0 && action == LOCK)
+		{
+			fork->used = 1;
+			pthread_mutex_unlock(fork->mutex);
+			return;
+		}
+		else if (action == UNLOCK)
+		{
+			fork->used = 0;
+			pthread_mutex_unlock(fork->mutex);
+			return ;
+		}
+		pthread_mutex_unlock(fork->mutex);
+		check_last_meal(data);
+		if (is_ended(data))
+			return ;
+		usleep(1000);
+	}
+}
+
 static void	action_fork(t_data *data)
 {
-	pthread_mutex_t	*first;
-	pthread_mutex_t	*second;
+	t_fork	*first;
+	t_fork	*second;
 
 	if ((data->philo_x % 2) == 0)
 	{
@@ -80,13 +98,13 @@ static void	action_fork(t_data *data)
 		first = data->left_hand;
 		second = data->right_hand;
 	}
-	pthread_mutex_lock(first);
+	fork_availability(first, LOCK, data);
 	print_activity(data, TAKEN_FORK);
-	pthread_mutex_lock(second);
+	fork_availability(second, LOCK, data);
 	print_activity(data, TAKEN_FORK);
 	action_eating(data);
-	pthread_mutex_unlock(first);
-	pthread_mutex_unlock(second);
+	fork_availability(first, UNLOCK, data);
+	fork_availability(second, UNLOCK, data);
 	action_sleeping(data);
 }
 
@@ -96,7 +114,7 @@ void	next_activity(t_data *data)
 	{
 		check_last_meal(data);
 		action_fork(data);
-		action_thinking(data);
+		print_activity(data, IS_THINKING);
 		if (is_ended(data))
 			break ;
 	}

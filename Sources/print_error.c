@@ -12,62 +12,28 @@
 
 #include "../include/philo.h"
 
-static void	unknow_error(const char *function)
-{
-	char	*error;
-
-	error = ft_strjoin(function, "unknow error");
-	if (!error)
-		print_error("Malloc : Allocation memory failed");
-	print_error(error);
-}
-
 void	print_error_code(const char *function, int err_code)
 {
-	char	*error;
-
-	error = NULL;
+	putstr_fd(2, RED);
+	putstr_fd(2, function);
 	if (err_code == EAGAIN)
-		error = ft_strjoin(function, "Resource temporarily unavailable");
+		putstr_fd(2, "Resource temporarily unavailable");
 	else if (err_code == EPERM)
-		error = ft_strjoin(function, "Operation not permitted");
+		putstr_fd(2, "Operation not permitted");
 	else if (err_code == EINVAL)
-		error = ft_strjoin(function, "Invalid argument");
+		putstr_fd(2, "Invalid argument");
 	else if (err_code == ESRCH)
-		error = ft_strjoin(function, "No such process");
+		putstr_fd(2, "No such process");
 	else if (err_code == EDEADLK)
-		error = ft_strjoin(function, "Resource deadlock avoided");
+		putstr_fd(2, "Resource deadlock avoided");
 	else
-	{
-		unknow_error(function);
-		return ;
-	}
-	if (error == NULL)
-		print_error("Malloc : Allocation memory failed");
-	print_error(error);
+		putstr_fd(2, "Unknown error");
+	putstr_fd(2, YELLOW"\nExit Program\n"RESET);
 }
 
 void	print_error(const char *str)
 {
-	char	*color;
-	char	*error;
-
-	color = ft_strjoin(RED, str);
-	if (!color)
-	{
-		write(2, RED"Print_error : Allocation memory failed\n", 44);
-		write(2, YELLOW"Exit program\n"RESET, 18);
-		exit(EXIT_FAILURE);
-	}
-	error = ft_strjoin(color, YELLOW"\nExit Program\n"RESET);
-	if (!error)
-	{
-		free(color);
-		write(2, RED"Print_error : Allocation memory failed\n", 44);
-		write(2, YELLOW"Exit program\n"RESET, 18);
-		exit(EXIT_FAILURE);
-	}
-	write(2, error, ft_strlen(error));
-	free(color);
-	free(error);
+	putstr_fd(2, RED);
+	putstr_fd(2, str);
+	putstr_fd(2,YELLOW"\nExit Program\n"RESET);
 }

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/02 18:35:11 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:40:42 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	*exec_thread(void *thread)
 		return (NULL);
 	}
 	if ((data->philo_x % 2) == 0)
-		usleep(30);
+		usleep(50);
 	next_activity(data);
 	return (NULL);
 }
