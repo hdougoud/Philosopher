@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 10:55:37 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:38:59 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	action_eating(t_philo *philo)
 	while (timer < philo->data->time_to_eat)
 	{
 		usleep(1000);
+		break;
 		//timer = update_local_timer(&data->last_meal);
 		if (timer == -1)
 			thread_error(philo, "update timer failed");

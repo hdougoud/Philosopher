@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:21:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 11:32:26 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:07:26 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	init_philo_struct(t_data *data)
 	while (++i < data->philosophers)
 	{
 		if (pthread_mutex_init(&data->philo[i].right_hand, NULL))
+			return (print_error("pthread_mutex_init : Initialisation failed"));
+		if (pthread_mutex_init(&data->philo[i].last_meal.mutex, NULL))
 			return (print_error("pthread_mutex_init : Initialisation failed"));
 		if (gettimeofday(&data->philo[i].last_meal.tv, NULL))
 			return (print_error("gettimeofday : function failed"));

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:31 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:19:11 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,9 @@ static int convert_numbers(t_data *data, int argc, char **argv)
 			return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	}
 	if (data->philosophers < 1)
-	{
-		putstr_fd(2, RED"Not enough philosophers\n"YELLOW"Exit Program\n"RESET);
-		return (1);
-	}
+		return (print_error("Not enough philosophers"));
 	if (data->philosophers > 200)
-	{
-		putstr_fd(2, RED"Too much philosophers\n"YELLOW"Exit Program\n"RESET);
-		return (1);
-	}
+		return (print_error("Too much philosophers"));
 	return (0);
 }
 
@@ -68,5 +62,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_philosophers(&data))
 		return (1);
-	usleep(100000);
+	if (monitoring(&data))
+		return (1); //fraa_all
+	
 }

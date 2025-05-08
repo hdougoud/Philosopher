@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 10:17:31 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:18:15 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_global_timer	t_global_timer;
 
 int		is_ended(t_philo *philo);
 int		update_local_timer(struct timeval *timer);
+
 
 void	next_activity(t_philo *philo);
 void	check_last_meal(t_philo *philo);

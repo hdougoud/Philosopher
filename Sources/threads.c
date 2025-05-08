@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 10:34:11 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:38:08 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	*exec_thread(void *thread)
 	}
 	if ((philo->id % 2) == 0)
 		usleep(50);
-	printf("Hello i'm thread %d\n", philo->id);
 	next_activity(philo);
 	return (NULL);
 }

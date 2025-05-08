@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 10:46:23 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:18:32 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ typedef struct s_data	t_data;
 typedef struct s_global	t_global;
 
 int				ft_atoi(const char *str);
+int				monitoring(t_data *data);
 int				print_error(const char *str);
 int				init_philosophers(t_data *data);
+
 
 //int				join_all_thread(t_data **data, int n_threads);
 void			*exec_thread(void *thread);
