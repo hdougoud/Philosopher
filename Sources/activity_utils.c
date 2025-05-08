@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 22:27:37 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:02:00 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void	print_activity(t_philo *philo, char *activity)
 
 	if (gettimeofday(&temp, NULL))
 		thread_error(philo, "gettimeofday failed");
-	timer = (temp.tv_usec - philo->timer->tv_usec) / 1000;
-	timer += (temp.tv_sec - philo->timer->tv_sec) * 1000;
-	pthread_mutex_lock(philo->print);
+	timer = (temp.tv_usec - philo->data->timer->tv_usec) / 1000;
+	timer += (temp.tv_sec - philo->data->timer->tv_sec) * 1000;
+	pthread_mutex_lock(&philo->data->print);
 	if (!is_ended(philo))
-		printf("%dms %d %s\n", timer, philo->philo_x, activity);
-	pthread_mutex_unlock(philo->print);
+		printf("%dms %d %s\n", timer, philo->id, activity);
+	pthread_mutex_unlock(&philo->data->print);
 }
 
 void	check_last_meal(t_philo *philo)
@@ -88,12 +88,13 @@ void	check_last_meal(t_philo *philo)
 
 	if (is_ended(philo))
 		return ;
-	timer = update_local_timer(&philo->last_meal);
-	if (timer > philo->args->time_to_die)
+	timer = 0;
+	//timer = update_local_timer(&philo->data->last_meal);
+	if (timer > philo->data->time_to_die)
 	{
 		print_activity(philo, DIED);
-		pthread_mutex_lock(&philo->is_finished->mutex);
-		philo->is_finished->var = 1;
-		pthread_mutex_unlock(&philo->is_finished->mutex);
+		pthread_mutex_lock(&philo->data->death_check.mutex);
+		philo->data->death_check.var = 1;
+		pthread_mutex_unlock(&philo->data->death_check.mutex);
 	}
 }

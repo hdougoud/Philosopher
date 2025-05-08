@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 21:46:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:46:23 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,9 @@ int				init_philosophers(t_data *data);
 //int				join_all_thread(t_data **data, int n_threads);
 void			*exec_thread(void *thread);
 void			putstr_fd(int fd, const char *str);
-// void			free_global_struct(t_global *global);
 void			*ft_calloc(size_t count, size_t size);
 // void			free_all(t_data **data, t_global *global);
 
-//struct timeval	*init_global_timer(void);
-
 size_t	ft_strlen(const char *str);
-
-pthread_mutex_t	*create_fork_tab(int total);
 
 #endif

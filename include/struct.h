@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 22:15:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:27:49 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,28 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_data	t_data;
-
 typedef struct s_mutex
 {
 	pthread_mutex_t	mutex;
 	int				var;
 }	t_mutex;
 
-typedef struct	s_fork
-{
-	pthread_mutex_t	*mutex;
-	int				used;
-}	t_fork;
-
-typedef struct s_print
+typedef struct s_last_meal
 {
 	pthread_mutex_t	mutex;
-}	t_print;
+	struct timeval	tv;
+}	t_last_meal;
 
 typedef struct s_philo
 {
 	pthread_t		thread_id;
 	int				id;
 	int				meals;
-	t_fork			*right_hand;
-	t_fork			*left_hand;
+	t_last_meal		last_meal;
+	pthread_mutex_t	right_hand;
+	pthread_mutex_t	*left_hand;
 	struct timeval	nap_time;
-	t_data			*data;
+	struct s_data *data;
 }	t_philo;
 
 typedef struct s_data

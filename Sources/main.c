@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 19:12:36 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:21:31 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,5 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_philosophers(&data))
 		return (1);
+	usleep(100000);
 }

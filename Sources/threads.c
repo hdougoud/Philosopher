@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 22:18:44 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/08 10:34:11 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*exec_thread(void *thread)
 	philo = (t_philo*) thread;
 	if (init_thread(philo))
 		return (NULL);
-	if (philo->id == 1)
+	if (philo->data->philosophers == 1)
 	{
 		print_activity(philo, TAKEN_FORK);
 		usleep(philo->data->time_to_die * 1000);
@@ -36,7 +36,7 @@ void	*exec_thread(void *thread)
 	}
 	if ((philo->id % 2) == 0)
 		usleep(50);
-	return (NULL);
-	//next_activity(data);
+	printf("Hello i'm thread %d\n", philo->id);
+	next_activity(philo);
 	return (NULL);
 }
