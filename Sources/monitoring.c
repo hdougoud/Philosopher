@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:16:57 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 15:56:30 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:40:37 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	end_simulation(t_data *data)
 	while (i < data->philosophers)
 	{
 		if (pthread_join(data->philo[i].thread_id, NULL))
-			return (print_error("pthread_join : function failed"));
+			return (print_error(&data->print, "pthread_join : unknow error"));
 		i++;
 	}
 	if (data->satiated.var == data->philosophers)
@@ -46,7 +46,7 @@ int	monitoring(t_data *data)
 		if (i >= data->philosophers)
 			i = 0;
 		if (gettimeofday(&new, NULL))
-			return (print_error("gettimeofday : function failed"));
+			return (print_error(&data->print, "gettimeofday : unknow error"));
 		pthread_mutex_lock(&data->philo[i].last_meal.mutex);
 		timer = (new.tv_sec - data->philo[i].last_meal.tv.tv_sec) * 1000;
 		timer += (new.tv_usec - data->philo[i].last_meal.tv.tv_usec) / 1000;

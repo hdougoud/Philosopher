@@ -6,17 +6,19 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:01:46 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 15:57:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:29:13 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	print_error(const char *str)
+int	print_error(pthread_mutex_t *print, const char *str)
 {
+	pthread_mutex_lock(print);
 	putstr_fd(2, RED"Error\n");
 	putstr_fd(2, str);
 	putstr_fd(2, YELLOW"\nExit Program\n"RESET);
+	pthread_mutex_unlock(print);
 	return (1);
 }
 
