@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:21:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 14:07:26 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:46:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	init_data_strcut(t_data *data)
 		pthread_mutex_destroy(&data->death_check.mutex);
 		return (print_error("pthread_mutex_init : Initialisation failed"));
 	}
+	data->satiated.var = 0;
+	data->death_check.var = 0;
 	return (0);
 }
 

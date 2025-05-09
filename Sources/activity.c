@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 13:38:59 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:43:55 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 static void	action_sleeping(t_philo *philo)
 {
-	int		timer;
+	int				timer;
+	struct timeval	new;
 
 	timer = 0;
 	if (is_ended(philo))
@@ -26,10 +27,10 @@ static void	action_sleeping(t_philo *philo)
 	while (timer < philo->data->time_to_sleep)
 	{
 		usleep(1000);
-		///timer = update_local_timer(&data->nap_time);
-		if (timer == -1)
-			thread_error(philo, "update timer failed");
-		//check_last_meal(data);
+		if (gettimeofday(&new, NULL))
+			thread_error(philo, "gettimeofday failed");
+		timer = (new.tv_sec - philo->nap_time.tv_sec) * 1000;
+		timer += (new.tv_usec - philo->nap_time.tv_usec) / 1000;
 		if (is_ended(philo))
 			return ;
 	}
@@ -38,20 +39,27 @@ static void	action_sleeping(t_philo *philo)
 static void	action_eating(t_philo *philo)
 {
 	int	timer;
+	struct timeval	new;
+	struct timeval	current;
 
 	timer = 0;
-	//check_last_meal(data);
 	print_activity(philo, IS_EATING);
+	pthread_mutex_lock(&philo->last_meal.mutex);
+	if (gettimeofday(&philo->last_meal.tv, NULL))
+	{
+		pthread_mutex_unlock(&philo->last_meal.mutex);
+		thread_error(philo, "gettimeofday failed");
+	}
+	current = philo->last_meal.tv;
+	pthread_mutex_unlock(&philo->last_meal.mutex);
 	philo->meals += 1;
-	//gettimeofday(&philo->last_meal, NULL);
 	while (timer < philo->data->time_to_eat)
 	{
 		usleep(1000);
-		break;
-		//timer = update_local_timer(&data->last_meal);
-		if (timer == -1)
-			thread_error(philo, "update timer failed");
-		//check_last_meal(data);
+		if (gettimeofday(&new, NULL))
+			thread_error(philo, "gettimeofday failed");
+		timer = (new.tv_sec - current.tv_sec) * 1000;
+		timer += (new.tv_usec - current.tv_usec) / 1000;
 		if (is_ended(philo))
 			return ;
 	}

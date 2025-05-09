@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 14:19:11 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:16:14 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int	main(int argc, char **argv)
 	if (init_philosophers(&data))
 		return (1);
 	if (monitoring(&data))
-		return (1); //fraa_all
-	
+		return (1);
 }

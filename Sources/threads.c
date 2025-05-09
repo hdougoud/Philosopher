@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 13:38:08 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:14:49 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 static int	(init_thread(t_philo *philo))
 {
+	philo->meals = 0;
 	if (gettimeofday(&philo->nap_time, NULL))
 		return (thread_error(philo, "gettimeofday failed"), 1);
 	return (0);

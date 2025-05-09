@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/08 10:02:00 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 10:15:55 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,14 @@ void	thread_error(t_philo *philo, char *str)
 
 int	is_ended(t_philo *philo)
 {
-	int	status;
-
-	status = 0;
 	pthread_mutex_lock(&philo->data->death_check.mutex);
 	if (philo->data->death_check.var == 1)
-		status = 1;
-	if (status == 1)
 	{
 		pthread_mutex_unlock(&philo->data->death_check.mutex);
-		return (status);
+		return (1);
 	}
-	//status = did_everyone_eat(philo);
 	pthread_mutex_unlock(&philo->data->death_check.mutex);
-	return (status);
+	return (0);
 }
 
 void	print_activity(t_philo *philo, char *activity)
