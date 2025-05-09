@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:16:57 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 10:48:18 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:56:30 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../include/struct.h"
 #include "../include/thread.h"
 
-static int	join_all_thread(t_data *data)
+static int	end_simulation(t_data *data)
 {
 	int	i;
 
@@ -25,6 +25,10 @@ static int	join_all_thread(t_data *data)
 			return (print_error("pthread_join : function failed"));
 		i++;
 	}
+	if (data->satiated.var == data->philosophers)
+		putstr_fd(1, GREEN"the simulation ended successfully\n"RESET);
+	else
+		putstr_fd(1, RED"A philosopher has died, end of simulation\n"RESET);
 	return (0);
 }
 
@@ -34,12 +38,12 @@ int	monitoring(t_data *data)
 	int				timer;
 	struct timeval	new;
 
-	i = -1;
+	i = 0;
 	timer = 0;
-	while(timer < data->time_to_die)
+	while (timer < data->time_to_die)
 	{
 		usleep(500);
-		if (++i >= data->philosophers)
+		if (i >= data->philosophers)
 			i = 0;
 		if (gettimeofday(&new, NULL))
 			return (print_error("gettimeofday : function failed"));
@@ -48,9 +52,9 @@ int	monitoring(t_data *data)
 		timer += (new.tv_usec - data->philo[i].last_meal.tv.tv_usec) / 1000;
 		pthread_mutex_unlock(&data->philo[i].last_meal.mutex);
 	}
-	print_activity(&data->philo[i], DIED);
+	print_activity(data->philo, DIED);
 	pthread_mutex_lock(&data->death_check.mutex);
 	data->death_check.var = 1;
 	pthread_mutex_unlock(&data->death_check.mutex);
-	return (join_all_thread(data));
+	return (end_simulation(data));
 }

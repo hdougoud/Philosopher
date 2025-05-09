@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 11:57:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 10:14:49 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:57:37 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ void	*exec_thread(void *thread)
 {
 	t_philo	*philo;
 
-	philo = (t_philo*) thread;
+	philo = (t_philo *)thread;
 	if (init_thread(philo))
 		return (NULL);
 	if (philo->data->philosophers == 1)
 	{
 		print_activity(philo, TAKEN_FORK);
 		usleep(philo->data->time_to_die * 1000);
-		print_activity(philo, DIED);
 		return (NULL);
 	}
 	if ((philo->id % 2) == 0)

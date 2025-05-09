@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:01:46 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/07 21:49:43 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:57:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	print_error(const char *str)
 {
 	putstr_fd(2, RED"Error\n");
 	putstr_fd(2, str);
-	putstr_fd(2,YELLOW"\nExit Program\n"RESET);
+	putstr_fd(2, YELLOW"\nExit Program\n"RESET);
 	return (1);
 }
 

@@ -6,14 +6,31 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 10:16:14 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:56:07 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include "../include/struct.h"
 
-static int convert_numbers(t_data *data, int argc, char **argv)
+static void	free_all(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->satiated.mutex);
+	pthread_mutex_destroy(&data->death_check.mutex);
+	while (i >= data->philosophers)
+	{
+		pthread_mutex_destroy(&data->philo[i].right_hand);
+		pthread_mutex_destroy(&data->philo[i].last_meal.mutex);
+		i++;
+	}
+	free(data->philo);
+}
+
+static int	convert_numbers(t_data *data, int argc, char **argv)
 {
 	data->philosophers = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]);
@@ -55,7 +72,6 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	(void) data;
 	if (check_args(argc))
 		return (1);
 	if (convert_numbers(&data, argc, argv))
@@ -64,4 +80,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (monitoring(&data))
 		return (1);
+	free_all(&data);
+	return (0);
 }

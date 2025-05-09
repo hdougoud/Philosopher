@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:02:06 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 10:43:55 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:46:25 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	action_sleeping(t_philo *philo)
 
 static void	action_eating(t_philo *philo)
 {
-	int	timer;
+	int				timer;
 	struct timeval	new;
 	struct timeval	current;
 
@@ -52,7 +52,7 @@ static void	action_eating(t_philo *philo)
 	}
 	current = philo->last_meal.tv;
 	pthread_mutex_unlock(&philo->last_meal.mutex);
-	philo->meals += 1;
+	philo->meals++;
 	while (timer < philo->data->time_to_eat)
 	{
 		usleep(1000);
@@ -94,7 +94,6 @@ void	next_activity(t_philo *philo)
 {
 	while (1)
 	{
-		//check_last_meal(data);
 		action_fork(philo);
 		print_activity(philo, IS_THINKING);
 		if (is_ended(philo))
