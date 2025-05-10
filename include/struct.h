@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 15:34:46 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:17:52 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <pthread.h>
 # include <sys/time.h>
+
+# define RED	"\x1b[31;1m"
+# define GREEN	"\x1b[32;1m"
+# define YELLOW	"\x1b[33;1m"
+# define RESET	"\x1b[0m"
 
 typedef struct s_mutex
 {

@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   bonus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 13:05:13 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/06 09:54:14 by hdougoud         ###   ########.fr       */
+/*   Created: 2025/05/10 19:08:57 by hdougoud          #+#    #+#             */
+/*   Updated: 2025/05/10 19:16:32 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/struct.h"
-#include "../include/philo_bonus.h"
+#ifndef BONUS_H
+# define BONUS_H
 
-void	close_all(t_data *data)
-{
-	if (data->fork || data->fork != SEM_FAILED)
-	sem_close(data->fork);
-	if (data->print || data->fork != SEM_FAILED)
-	sem_unlink("/sem_fork");
-	sem_unlink("/sem_print");
-	sem_unlink("/sem_satiated");
-}
+#include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <sys/time.h>
+
+int		ft_atoi(const char *str);
+
+void	putstr_fd(int fd, const char *str)
+
+#endif
