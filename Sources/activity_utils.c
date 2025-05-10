@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:07:15 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 15:37:38 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/11 01:38:33 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	thread_error(t_philo *philo, char *str)
 	if (is_ended(philo))
 		return ;
 	pthread_mutex_lock(&philo->data->print);
-	putstr_fd(2, RED_ULTRA"Thread Error : ");
+	putstr_fd(2, RED"Thread Error : ");
 	putstr_fd(2, str);
-	putstr_fd(2, YELLOW_ULTRA"\nExit program\n"RESET);
+	putstr_fd(2, YELLOW"\nExit program\n"RESET);
 	pthread_mutex_unlock(&philo->data->print);
 	pthread_mutex_lock(&philo->data->death_check.mutex);
 	philo->data->death_check.var = 1;

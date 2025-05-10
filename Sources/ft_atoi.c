@@ -6,11 +6,13 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:15:02 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/03 13:29:53 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/11 01:38:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+size_t	ft_strlen(const char *str);
 
 static int	is_total_too_high(long total)
 {

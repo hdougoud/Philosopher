@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 21:22:28 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/10 19:18:27 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/11 01:37:23 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # define IS_THINKING	"is thinking"
 # define IS_SLEEPING	"is sleeping"
 # define TAKEN_FORK		"has taken a fork"
+
+# define RED	"\x1b[31;1m"
+# define GREEN	"\x1b[32;1m"
+# define YELLOW	"\x1b[33;1m"
+# define RESET	"\x1b[0m"
 
 typedef struct s_args			t_args;
 typedef struct s_philo			t_philo;
