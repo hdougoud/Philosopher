@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/10 19:15:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/11 20:53:07 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,9 @@
 
 static void	free_all(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->satiated.mutex);
-	pthread_mutex_destroy(&data->death_check.mutex);
-	while (i >= data->philosophers)
-	{
-		pthread_mutex_destroy(&data->philo[i].right_hand);
-		pthread_mutex_destroy(&data->philo[i].last_meal.mutex);
-		i++;
-	}
+	sem_close(&data->print);
+	sem_close(&data->satiated);
+	sem_close(&data->death_check);
 	free(data->philo);
 }
 
