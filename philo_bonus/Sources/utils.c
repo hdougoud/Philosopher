@@ -6,13 +6,13 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:01:46 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/10 19:17:04 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:38:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../include/bonus.h"
 
-static size_t	ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
@@ -22,13 +22,13 @@ static size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-int	print_error(pthread_mutex_t *print, const char *str)
+int	print_error(sem_t *print, const char *str)
 {
-	pthread_mutex_lock(print);
+	sem_wait(print);
 	putstr_fd(2, RED"Error\n");
 	putstr_fd(2, str);
 	putstr_fd(2, YELLOW"\nExit Program\n"RESET);
-	pthread_mutex_unlock(print);
+	sem_post(print);
 	return (1);
 }
 

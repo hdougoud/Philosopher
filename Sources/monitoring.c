@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 18:16:57 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 19:40:37 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:01:31 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ static int	end_simulation(t_data *data)
 	int	i;
 
 	i = 0;
+	print_activity(data->philo, DIED);
+	pthread_mutex_lock(&data->death_check.mutex);
+	data->death_check.var = 1;
+	pthread_mutex_unlock(&data->death_check.mutex);
 	while (i < data->philosophers)
 	{
 		if (pthread_join(data->philo[i].thread_id, NULL))
@@ -46,15 +50,16 @@ int	monitoring(t_data *data)
 		if (i >= data->philosophers)
 			i = 0;
 		if (gettimeofday(&new, NULL))
+		{
+			free_all(data);
 			return (print_error(&data->print, "gettimeofday : unknow error"));
+		}
 		pthread_mutex_lock(&data->philo[i].last_meal.mutex);
 		timer = (new.tv_sec - data->philo[i].last_meal.tv.tv_sec) * 1000;
 		timer += (new.tv_usec - data->philo[i].last_meal.tv.tv_usec) / 1000;
 		pthread_mutex_unlock(&data->philo[i].last_meal.mutex);
 	}
-	print_activity(data->philo, DIED);
-	pthread_mutex_lock(&data->death_check.mutex);
-	data->death_check.var = 1;
-	pthread_mutex_unlock(&data->death_check.mutex);
-	return (end_simulation(data));
+	if (end_simulation(data))
+		return (1);
+	return (0);
 }

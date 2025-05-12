@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/11 20:53:07 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:57:59 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 static void	free_all(t_data *data)
 {
-	sem_close(&data->print);
-	sem_close(&data->satiated);
-	sem_close(&data->death_check);
+	sem_unlink("/sem_fork");
+	sem_unlink("/sem_print");
+	sem_unlink("/sem_satiated");
+	sem_unlink("/sem_death_check");
 	free(data->philo);
 }
 
@@ -38,9 +39,15 @@ static int	convert_numbers(t_data *data, int argc, char **argv)
 			return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	}
 	if (data->philosophers < 1)
-		return (print_error(&data->print, "Not enough philosophers"));
+	{
+		putstr_fd(2, RED"Not enough philosophers\n"RESET);
+		return (putstr_fd(2, YELLOW"Exit program\n"RESET), 1);
+	}
 	if (data->philosophers > 200)
-		return (print_error(&data->print, "Too much philosophers"));
+	{
+		putstr_fd(2, RED"Too much philosophers\n"RESET);
+		return (putstr_fd(2, YELLOW"Exit program\n"RESET), 1);
+	}
 	return (0);
 }
 
@@ -69,4 +76,5 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_philosophers(&data))
 		return (1);
+	free_all(&data);
 }

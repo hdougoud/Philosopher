@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/11 01:36:44 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 09:02:44 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		monitoring(t_data *data);
 int		init_philosophers(t_data *data);
 int		print_error(pthread_mutex_t *print, const char *str);
 
+void	free_all(t_data *data);
 void	*exec_thread(void *thread);
 void	putstr_fd(int fd, const char *str);
 void	*ft_calloc(size_t count, size_t size);

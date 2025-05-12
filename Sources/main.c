@@ -6,14 +6,14 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:23:47 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/09 19:31:58 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 10:51:10 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 #include "../include/struct.h"
 
-static void	free_all(t_data *data)
+void	free_all(t_data *data)
 {
 	int	i;
 
@@ -47,9 +47,15 @@ static int	convert_numbers(t_data *data, int argc, char **argv)
 			return (putstr_fd(2, YELLOW"Exit Program\n"RESET), 1);
 	}
 	if (data->philosophers < 1)
-		return (print_error(&data->print, "Not enough philosophers"));
+	{
+		putstr_fd(2, RED"Not enough philosophers\n"RESET);
+		return (putstr_fd(2, YELLOW"Exit program\n"RESET), 1);
+	}
 	if (data->philosophers > 200)
-		return (print_error(&data->print, "Too much philosophers"));
+	{
+		putstr_fd(2, RED"Too much philosophers\n"RESET);
+		return (putstr_fd(2, YELLOW"Exit program\n"RESET), 1);
+	}
 	return (0);
 }
 
