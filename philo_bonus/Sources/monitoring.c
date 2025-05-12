@@ -6,10 +6,11 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 14:00:49 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 15:51:21 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:54:13 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include <sys/wait.h>
 #include "../include/bonus.h"
 #include "../include/struct.h"
@@ -58,6 +59,8 @@ static void	*last_meal_monitoring(void *thread)
 	data = (t_data *)thread;
 	while (timer < data->time_to_die)
 	{
+		if (i >= data->philosophers)
+			i = 0;
 		if (gettimeofday(&temp, NULL))
 			return (print_error(data->print, "gettimeofday failed"), NULL);
 		sem_wait(data->philo[i].last_meal.sem);
@@ -65,12 +68,12 @@ static void	*last_meal_monitoring(void *thread)
 		timer += (temp.tv_sec - data->philo[i].last_meal.tv.tv_sec) * 1000;
 		sem_post(data->philo[i].last_meal.sem);
 		if (monitoring_check_death(data))
-			return (NULL);
+			break ;
 		i++;
 	}
 	print_activity(data, i, "died");
 	sem_wait(data->death_check.sem);
-	data->death_check.status = 1;
+	data->death_check.status = 1; //dosen't work
 	sem_post(data->death_check.sem);
 	return (NULL);
 }
@@ -93,9 +96,13 @@ int	monitoring(t_data *data)
 		print_error(data->print, "pthread : creation faield");
 		return (free_all(data), 1);
 	}
+	putstr_fd(2, "wait started\n");
+	waitpid(0, &status, 0);
+	putstr_fd(2, "wait finiehd\n");
 	while (i < data->philosophers)
 	{
-		waitpid(data->philo[i].pid, &status, 0);
+		kill(data->philo[i].pid, SIGTERM);
+		putstr_fd(2, "KILLED");
 		i++;
 	}
 	pthread_join(meal, NULL);

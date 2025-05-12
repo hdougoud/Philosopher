@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 15:07:41 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:50:03 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "../include/bonus.h"
 #include "../include/struct.h"
 
+
+
+
+#include <stdio.h>
 static char	*find_semname(const int id, char *sem_name, char *generic)
 {
 	int		i;
@@ -43,17 +47,18 @@ static int	init_philo_struct(t_data *data)
 	id = 0;
 	while (id < data->philosophers)
 	{
+		data->philo[id].meals = 0;
 		find_semname(id, data->philo[id].last_meal.sem_name, "/sem_last_meal_");
 		sem_unlink(data->philo[id].last_meal.sem_name);
 		data->philo[id].last_meal.sem = sem_open(data->philo[id].last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1);
-		data->philo[id].meals = 0;
 		if (gettimeofday(&data->philo[id].last_meal.tv, NULL))
 			return (print_error(data->print, "gettimeofday : function failed"));
 		if (gettimeofday(&data->philo[id].nap_time, NULL))
 			return (print_error(data->print, "gettimeofday : function failed"));
+		id++;
 	}
 	return (0);
-	}
+}
 
 static int	init_data_struct(t_data *data)
 {
@@ -75,7 +80,7 @@ static int	init_data_struct(t_data *data)
 	data->satiated = sem_open("/sem_satiated", O_CREAT | O_EXCL, 0644, max);
 	if (data->satiated == SEM_FAILED)
 		return (putstr_fd(2, RED"sem_satiated open failed\n"RESET), 1);
-	data->death_check.sem = sem_open("/sem_death", O_CREAT | O_EXCL, 0644, 1);
+	data->death_check.sem = sem_open("/sem_death", O_CREAT | O_EXCL, 0644, max);
 	if (data->death_check.sem == SEM_FAILED)
 		return (putstr_fd(2, RED"sem_death open failed\n"RESET), 1);
 	return (0);
@@ -99,7 +104,7 @@ int	init_philosophers(t_data *data)
 		if (data->philo[i].pid == -1)
 			return (print_error(data->print, "fork failed"));
 		if (data->philo[i].pid == 0)
-			start_routine(data, i + 1); //remove +1 later
+			start_routine(data, i);
 		else
 			i++;
 	}

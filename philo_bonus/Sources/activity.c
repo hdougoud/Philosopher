@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:36:11 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 13:57:11 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:34:51 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ static void	action_sleeping(t_data *data, const int id)
 	timer = 0;
 	print_activity(data, id, IS_SLEEPING);
 	if (gettimeofday(&data->philo[id].nap_time, NULL))
-		print_fork_error(data, "gettimeofday : function failed", id);
+		print_fork_error(data, "gettimeofday : function failed");
 	while (timer < data->time_to_sleep)
 	{
+		check_end(data);
 		if (gettimeofday(&temp, NULL))
-			print_fork_error(data, "gettimeofday : function failed", id);
+			print_fork_error(data, "gettimeofday : function failed");
 		timer = (temp.tv_usec - data->philo[id].nap_time.tv_usec) / 1000;
 		timer += (temp.tv_sec - data->philo[id].nap_time.tv_sec) * 1000;
 		usleep(1000);
@@ -43,13 +44,14 @@ static void	action_eating(t_data *data, const int id)
 	data->philo[id].meals += 1;
 	sem_wait(data->philo[id].last_meal.sem);
 	if (gettimeofday(&data->philo[id].last_meal.tv, NULL))
-		print_fork_error(data, "gettimeofday : function failed", id);
+		print_fork_error(data, "gettimeofday : function failed");
 	current = data->philo[id].last_meal.tv;
 	sem_post(data->philo[id].last_meal.sem);
 	while (timer < data->time_to_eat)
 	{
+		check_end(data);
 		if (gettimeofday(&temp, NULL))
-			print_fork_error(data, "gettimeofday : function failed", id);
+			print_fork_error(data, "gettimeofday : function failed");
 		timer = (temp.tv_usec - current.tv_usec) / 1000;
 		timer += (temp.tv_sec - current.tv_sec) * 1000;
 		usleep(1000);
@@ -75,5 +77,6 @@ void	next_action(t_data *data, const int id)
 		action_sleeping(data, id);
 		print_activity(data, id, IS_THINKING);
 		usleep(1000);
+		check_end(data);
 	}
 }
