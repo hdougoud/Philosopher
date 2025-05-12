@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 11:26:00 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:03:18 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,18 @@ typedef struct s_mutex
 	int		var;
 }	t_mutex;
 
+typedef struct s_last_meal
+{
+	sem_t			mutex;
+	struct timeval	tv;
+}	t_last_meal;
+
 typedef struct s_philo
 {
 	pid_t			pid;
 	int				meals;
 	int				satiated;
-	struct timeval	last_meal;
+	t_last_meal		last_meal;
 	struct timeval	nap_time;
 	struct s_data *data;
 }	t_philo;
