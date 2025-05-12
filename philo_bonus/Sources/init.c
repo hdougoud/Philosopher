@@ -6,13 +6,24 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 11:32:00 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:43:47 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
+#include <sys/wait.h>
 #include "../include/bonus.h"
 #include "../include/struct.h"
-#include <fcntl.h>
+
+
+static int	wait_forks(t_data *data)
+{
+	int status;
+
+	(void) data;
+	waitpid(0, &status, 0);
+	return (0);
+}
 
 static int	init_data_struct(t_data *data)
 {
@@ -60,6 +71,6 @@ int	init_philosophers(t_data *data)
 		else
 			i++;
 	}
-	usleep(5000);
+	wait_forks(data);
 	return (0);
 }

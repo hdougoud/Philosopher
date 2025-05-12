@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:27:52 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 09:02:44 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:50:29 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define RED	"\x1b[31;1m"
+# define GREEN	"\x1b[32;1m"
+# define YELLOW	"\x1b[33;1m"
+# define RESET	"\x1b[0m"
+
 # define DIED			"died"
 # define IS_EATING		"is eating"
 # define IS_THINKING	"is thinking"
 # define IS_SLEEPING	"is sleeping"
 # define TAKEN_FORK		"has taken a fork"
-
-# define RED	"\x1b[31;1m"
-# define GREEN	"\x1b[32;1m"
-# define YELLOW	"\x1b[33;1m"
-# define RESET	"\x1b[0m"
 
 typedef struct s_args	t_args;
 typedef struct s_data	t_data;

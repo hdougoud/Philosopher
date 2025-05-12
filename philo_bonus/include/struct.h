@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 12:03:18 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:25:54 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,10 @@
 # include <semaphore.h>
 # include <sys/time.h>
 
-typedef struct s_mutex
-{
-	sem_t	mutex;
-	int		var;
-}	t_mutex;
-
 typedef struct s_last_meal
 {
-	sem_t			mutex;
+	sem_t			sem;
+	char			sem_name[20];
 	struct timeval	tv;
 }	t_last_meal;
 

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:11:30 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 11:54:39 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:28:43 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ typedef struct s_data	t_data;
 
 void	putstr_fd(int fd, const char *str);
 void	next_action(t_data *data, const int id);
-void	print_fork_error(t_data *data, char *str);
+void	print_fork_error(t_data *data, char *str, const int id);
 void	print_activity(t_data *data, const int id, const char *activity);
+
+char	*ft_itoa(int n, char *str);
 
 #endif
