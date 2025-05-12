@@ -6,19 +6,31 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 10:57:59 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:50:29 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/bonus.h"
 #include "../include/struct.h"
 
-static void	free_all(t_data *data)
+void	free_all(t_data *data)
 {
+	int	i;
+
+	i = 0;
+	sem_close(data->fork);
+	sem_close(data->print);
+	sem_close(data->satiated);
+	sem_close(data->death_check.sem);
+	while (i < data->philosophers)
+	{
+		sem_close(data->philo[i].last_meal.sem);
+		sem_unlink(data->philo[i].last_meal.sem_name);
+	}
 	sem_unlink("/sem_fork");
 	sem_unlink("/sem_print");
+	sem_unlink("/sem_death");
 	sem_unlink("/sem_satiated");
-	sem_unlink("/sem_death_check");
 	free(data->philo);
 }
 
@@ -75,6 +87,8 @@ int	main(int argc, char **argv)
 	if (convert_numbers(&data, argc, argv))
 		return (1);
 	if (init_philosophers(&data))
+		return (1);
+	if (monitoring(&data))
 		return (1);
 	free_all(&data);
 }

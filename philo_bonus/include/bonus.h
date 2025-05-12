@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:08:57 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 13:21:00 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:50:37 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@
 typedef struct s_data	t_data;
 typedef struct s_philo	t_philo;
 
+int		monitoring(t_data *data);
 int		ft_atoi(const char *str);
 int		init_philosophers(t_data *data);
 int		print_error(sem_t *print, const char *str);
 
+char	*ft_itoa(int n, char *str);
+
+void	free_all(t_data *data);
 void	putstr_fd(int fd, const char *str);
 void	*ft_calloc(size_t count, size_t size);
 void	start_routine(t_data *data, const int id);
+void	print_activity(t_data *data, const int id, const char *activity);
 
 #endif
