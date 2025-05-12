@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 16:50:03 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 22:02:13 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static int	init_philo_struct(t_data *data)
 		find_semname(id, data->philo[id].last_meal.sem_name, "/sem_last_meal_");
 		sem_unlink(data->philo[id].last_meal.sem_name);
 		data->philo[id].last_meal.sem = sem_open(data->philo[id].last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1);
+		find_semname(id, data->philo[id].end.sem_name, "/sem_end_");
+		sem_unlink(data->philo[id].end.sem_name);
+		data->philo[id].end.sem = sem_open(data->philo[id].end.sem_name, O_CREAT | O_EXCL, 0644, 1);
 		if (gettimeofday(&data->philo[id].last_meal.tv, NULL))
 			return (print_error(data->print, "gettimeofday : function failed"));
 		if (gettimeofday(&data->philo[id].nap_time, NULL))

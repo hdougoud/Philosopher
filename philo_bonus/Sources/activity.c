@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:36:11 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 16:34:51 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:42:44 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	action_sleeping(t_data *data, const int id)
 		print_fork_error(data, "gettimeofday : function failed");
 	while (timer < data->time_to_sleep)
 	{
-		check_end(data);
 		if (gettimeofday(&temp, NULL))
 			print_fork_error(data, "gettimeofday : function failed");
 		timer = (temp.tv_usec - data->philo[id].nap_time.tv_usec) / 1000;
@@ -49,7 +48,6 @@ static void	action_eating(t_data *data, const int id)
 	sem_post(data->philo[id].last_meal.sem);
 	while (timer < data->time_to_eat)
 	{
-		check_end(data);
 		if (gettimeofday(&temp, NULL))
 			print_fork_error(data, "gettimeofday : function failed");
 		timer = (temp.tv_usec - current.tv_usec) / 1000;
@@ -77,6 +75,5 @@ void	next_action(t_data *data, const int id)
 		action_sleeping(data, id);
 		print_activity(data, id, IS_THINKING);
 		usleep(1000);
-		check_end(data);
 	}
 }

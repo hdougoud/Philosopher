@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 15:06:20 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 22:03:43 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include <semaphore.h>
 # include <sys/time.h>
 
+typedef struct s_end
+{
+	sem_t	*sem;
+	int		status;
+	char	sem_name[20];
+}	t_end;
+
 typedef struct s_last_meal
 {
 	sem_t			*sem;
@@ -24,20 +31,29 @@ typedef struct s_last_meal
 	struct timeval	tv;
 }	t_last_meal;
 
-typedef struct s_philo
-{
-	pid_t			pid;
-	int				meals;
-	t_last_meal		last_meal;
-	struct timeval	nap_time;
-	struct s_data *data;
-}	t_philo;
-
 typedef struct s_death_check
 {
 	sem_t	*sem;
 	int		status;
 }	t_death_check;
+
+typedef struct s_thread
+{
+	int		id;
+	t_data *data;
+}	t_thread;
+
+
+typedef struct s_philo
+{
+	pid_t			pid;
+	int				meals;
+	t_end			end;
+	t_last_meal		last_meal;
+	struct timeval	nap_time;
+	struct s_data *data;
+}	t_philo;
+
 typedef struct s_data
 {
 	int				philosophers;

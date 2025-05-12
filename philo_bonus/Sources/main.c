@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 16:25:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:34:47 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	free_all(t_data *data)
 	{
 		sem_close(data->philo[i].last_meal.sem);
 		sem_unlink(data->philo[i].last_meal.sem_name);
+		i++;
 	}
 	sem_unlink("/sem_fork");
 	sem_unlink("/sem_print");
