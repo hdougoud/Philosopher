@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 14:00:49 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 23:59:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 00:41:10 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	monitoring(t_data *data)
 	waitpid(0, &status, 0);
 	while (i < data->philosophers)
 	{
-		kill(data->pid[i], SIGTERM);
+		kill(data->pid[i], SIGKILL);
 		i++;
 	}
 	printf("%s\n", RED"FINISHED\n"RESET);

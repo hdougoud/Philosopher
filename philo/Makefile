@@ -22,6 +22,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
+	rm -rf $(NAME)
 	rm -rf $(OBJ_DIR)
 
 fclean: clean

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 00:13:20 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:05:59 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@
 // 	return (0);
 // }
 
-void	start_routine(t_data *data, const int id)
+void	start_routine(t_data *data)
 {
 	//t_philo	philo;
 
 	//init_philo_struct(&philo, id);
 	//(void)	philo;
-	if ((id % 2) == 0)
-		usleep(50);
+	// if ((id % 2) == 0)
+	// 	usleep(50);
 	if (data->philosophers == 1)
 	{
 		//print_activity(data, id, TAKEN_FORK);
@@ -119,7 +119,7 @@ void	start_routine(t_data *data, const int id)
 	if (0 < data->philosophers)
 	{
 		sem_wait(data->print);
-		printf("Hello i'm philo %d\n", id);
+		printf("Hello i'm philo 0\n");
 		sem_post(data->print);
 	}
 	usleep(100000);

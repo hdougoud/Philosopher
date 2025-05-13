@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 23:59:34 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 01:06:05 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	init_philosophers(t_data *data)
 		if (data->pid[i] == -1)
 			return (print_error(data->print, "fork failed"));
 		if (data->pid[i] == 0)
-			start_routine(data, i);
+		{
+			data->this_philo = data->all_philo[i];
+			start_routine(data);
+		}
 		else
 			i++;
 	}
