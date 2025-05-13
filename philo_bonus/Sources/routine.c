@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 23:59:36 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 00:13:20 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,31 +81,31 @@
 // 	return (sem_name);
 // }
 
-static int	init_philo_struct(t_philo *philo, int id)
-{
-	(void) id;
-	philo->meals = 0;
-	philo->killed = 0;
-	philo->end.status = 0;
-	// find_semname(id, philo->last_meal.sem_name, "/sem_last_meal_");
-	// sem_unlink(philo->last_meal.sem_name);
-	// philo->last_meal.sem = sem_open(philo->last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1); //ganna create leaks
-	// find_semname(id, philo->end.sem_name, "/sem_end_");
-	// sem_unlink(philo->end.sem_name);
-	// philo->end.sem = sem_open(philo->end.sem_name, O_CREAT | O_EXCL, 0644, 1);
-	//if (gettimeofday(&philo->last_meal.tv, NULL))
-	//	return (print_error(data->print, "gettimeofday : function failed"));
-	//if (gettimeofday(&philo->nap_time, NULL))
-	//	return (print_error(data->print, "gettimeofday : function failed"));
-	return (0);
-}
+// static int	init_philo_struct(t_philo *philo, int id)
+// {
+// 	(void) id;
+// 	philo->meals = 0;
+// 	philo->killed = 0;
+// 	philo->end.status = 0;
+// 	// find_semname(id, philo->last_meal.sem_name, "/sem_last_meal_");
+// 	// sem_unlink(philo->last_meal.sem_name);
+// 	// philo->last_meal.sem = sem_open(philo->last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1); //ganna create leaks
+// 	// find_semname(id, philo->end.sem_name, "/sem_end_");
+// 	// sem_unlink(philo->end.sem_name);
+// 	// philo->end.sem = sem_open(philo->end.sem_name, O_CREAT | O_EXCL, 0644, 1);
+// 	//if (gettimeofday(&philo->last_meal.tv, NULL))
+// 	//	return (print_error(data->print, "gettimeofday : function failed"));
+// 	//if (gettimeofday(&philo->nap_time, NULL))
+// 	//	return (print_error(data->print, "gettimeofday : function failed"));
+// 	return (0);
+// }
 
 void	start_routine(t_data *data, const int id)
 {
-	t_philo	philo;
+	//t_philo	philo;
 
-	init_philo_struct(&philo, id);
-	(void)	philo;
+	//init_philo_struct(&philo, id);
+	//(void)	philo;
 	if ((id % 2) == 0)
 		usleep(50);
 	if (data->philosophers == 1)
