@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 21:34:47 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:44:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,19 @@ void	free_all(t_data *data)
 	sem_close(data->fork);
 	sem_close(data->print);
 	sem_close(data->satiated);
-	sem_close(data->death_check.sem);
+	sem_close(data->death_check);
 	while (i < data->philosophers)
 	{
+		sem_close(data->philo[i].end.sem);
 		sem_close(data->philo[i].last_meal.sem);
+		sem_unlink(data->philo[i].end.sem_name);
 		sem_unlink(data->philo[i].last_meal.sem_name);
 		i++;
 	}
 	sem_unlink("/sem_fork");
 	sem_unlink("/sem_print");
-	sem_unlink("/sem_death");
 	sem_unlink("/sem_satiated");
+	sem_unlink("/sem_death_check");
 	free(data->philo);
 }
 
@@ -82,12 +84,13 @@ static int	check_args(int argc)
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	t_philo	philo;
 
 	if (check_args(argc))
 		return (1);
 	if (convert_numbers(&data, argc, argv))
 		return (1);
-	if (init_philosophers(&data))
+	if (init_philosophers(&data, &philo))
 		return (1);
 	if (monitoring(&data))
 		return (1);

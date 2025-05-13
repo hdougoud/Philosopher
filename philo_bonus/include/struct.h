@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 22:03:43 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:40:53 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,16 @@ typedef struct s_last_meal
 	struct timeval	tv;
 }	t_last_meal;
 
-typedef struct s_death_check
-{
-	sem_t	*sem;
-	int		status;
-}	t_death_check;
-
 typedef struct s_thread
 {
 	int		id;
 	t_data *data;
 }	t_thread;
 
-
 typedef struct s_philo
 {
 	pid_t			pid;
+	int				killed;
 	int				meals;
 	t_end			end;
 	t_last_meal		last_meal;
@@ -64,9 +58,8 @@ typedef struct s_data
 	sem_t			*fork;
 	sem_t			*print;
 	sem_t			*satiated;
-	t_death_check	death_check;
+	sem_t			*death_check;
 	struct timeval	timer;
-	t_philo			*philo;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/12 22:02:13 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:04:34 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 #include "../include/bonus.h"
 #include "../include/struct.h"
 
-
-
-
-#include <stdio.h>
 static char	*find_semname(const int id, char *sem_name, char *generic)
 {
 	int		i;
@@ -48,9 +44,11 @@ static int	init_philo_struct(t_data *data)
 	while (id < data->philosophers)
 	{
 		data->philo[id].meals = 0;
+		data->philo[id].killed = 0;
+		data->philo[id].end.status = 0;
 		find_semname(id, data->philo[id].last_meal.sem_name, "/sem_last_meal_");
 		sem_unlink(data->philo[id].last_meal.sem_name);
-		data->philo[id].last_meal.sem = sem_open(data->philo[id].last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1);
+		data->philo[id].last_meal.sem = sem_name, O_CREAT | O_EXCL, 0644, 1);
 		find_semname(id, data->philo[id].end.sem_name, "/sem_end_");
 		sem_unlink(data->philo[id].end.sem_name);
 		data->philo[id].end.sem = sem_open(data->philo[id].end.sem_name, O_CREAT | O_EXCL, 0644, 1);
@@ -69,8 +67,8 @@ static int	init_data_struct(t_data *data)
 
 	sem_unlink("/sem_fork");
 	sem_unlink("/sem_print");
-	sem_unlink("/sem_death");
 	sem_unlink("/sem_satiated");
+	sem_unlink("/sem_death_check");
 	max = data->philosophers;
 	if (gettimeofday(&data->timer, NULL))
 		return (1);
@@ -83,24 +81,20 @@ static int	init_data_struct(t_data *data)
 	data->satiated = sem_open("/sem_satiated", O_CREAT | O_EXCL, 0644, max);
 	if (data->satiated == SEM_FAILED)
 		return (putstr_fd(2, RED"sem_satiated open failed\n"RESET), 1);
-	data->death_check.sem = sem_open("/sem_death", O_CREAT | O_EXCL, 0644, max);
-	if (data->death_check.sem == SEM_FAILED)
+	data->death_check = sem_open("/sem_death_check", O_CREAT | O_EXCL, 0644, max);
+	if (data->death_check == SEM_FAILED)
 		return (putstr_fd(2, RED"sem_death open failed\n"RESET), 1);
 	return (0);
 }
 
-int	init_philosophers(t_data *data)
+int	init_philosophers(t_data *data, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	data->philo = ft_calloc(data->philosophers, sizeof(t_philo));
-	if (!data->philo)
-		return (1);
 	if (init_data_struct(data))
 		return (1);
-	if (init_philo_struct(data))
-		return (0);
+	//initphilo
 	while (i < data->philosophers)
 	{
 		data->philo[i].pid = fork();
