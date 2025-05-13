@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 14:40:53 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 23:59:38 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <pthread.h>
 # include <semaphore.h>
 # include <sys/time.h>
+
+# define MAX_PHILO 250
 
 typedef struct s_end
 {
@@ -45,7 +47,7 @@ typedef struct s_philo
 	t_end			end;
 	t_last_meal		last_meal;
 	struct timeval	nap_time;
-	struct s_data *data;
+	//struct s_data *data;
 }	t_philo;
 
 typedef struct s_data
@@ -59,6 +61,7 @@ typedef struct s_data
 	sem_t			*print;
 	sem_t			*satiated;
 	sem_t			*death_check;
+	pid_t			pid[MAX_PHILO];
 	struct timeval	timer;
 }	t_data;
 

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 14:00:49 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 14:07:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 23:59:35 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 #include "../include/bonus.h"
 #include "../include/struct.h"
 
+
+#include <stdio.h>
 int	monitoring(t_data *data)
 {
-	//int			i;
+	int			i;
 	int			status;
 
-	//i = 0;
-	(void) data;
+	i = 0;
 	waitpid(0, &status, 0);
+	while (i < data->philosophers)
+	{
+		kill(data->pid[i], SIGTERM);
+		i++;
+	}
+	printf("%s\n", RED"FINISHED\n"RESET);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 14:44:02 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 23:59:32 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,14 @@
 
 void	free_all(t_data *data)
 {
-	int	i;
-
-	i = 0;
 	sem_close(data->fork);
 	sem_close(data->print);
 	sem_close(data->satiated);
 	sem_close(data->death_check);
-	while (i < data->philosophers)
-	{
-		sem_close(data->philo[i].end.sem);
-		sem_close(data->philo[i].last_meal.sem);
-		sem_unlink(data->philo[i].end.sem_name);
-		sem_unlink(data->philo[i].last_meal.sem_name);
-		i++;
-	}
 	sem_unlink("/sem_fork");
 	sem_unlink("/sem_print");
 	sem_unlink("/sem_satiated");
 	sem_unlink("/sem_death_check");
-	free(data->philo);
 }
 
 static int	convert_numbers(t_data *data, int argc, char **argv)
@@ -58,7 +46,7 @@ static int	convert_numbers(t_data *data, int argc, char **argv)
 		putstr_fd(2, RED"Not enough philosophers\n"RESET);
 		return (putstr_fd(2, YELLOW"Exit program\n"RESET), 1);
 	}
-	if (data->philosophers > 200)
+	if (data->philosophers > MAX_PHILO)
 	{
 		putstr_fd(2, RED"Too much philosophers\n"RESET);
 		return (putstr_fd(2, YELLOW"Exit program\n"RESET), 1);
@@ -84,13 +72,12 @@ static int	check_args(int argc)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	t_philo	philo;
 
 	if (check_args(argc))
 		return (1);
 	if (convert_numbers(&data, argc, argv))
 		return (1);
-	if (init_philosophers(&data, &philo))
+	if (init_philosophers(&data))
 		return (1);
 	if (monitoring(&data))
 		return (1);

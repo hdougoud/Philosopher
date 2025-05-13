@@ -6,60 +6,13 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/13 15:04:34 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/13 23:59:34 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "../include/bonus.h"
 #include "../include/struct.h"
-
-static char	*find_semname(const int id, char *sem_name, char *generic)
-{
-	int		i;
-	int		j;
-	char	nb[5];
-
-	i = 0;
-	j = 0;
-	while (generic[i])
-	{
-		sem_name[i] = generic[i];
-		i++;
-	}
-	ft_itoa(id, nb);
-	while (nb[j])
-	{
-		sem_name[i++] = nb[j++];
-	}
-	sem_name[i] = '\0';
-	return (sem_name);
-}
-
-static int	init_philo_struct(t_data *data)
-{
-	int	id;
-
-	id = 0;
-	while (id < data->philosophers)
-	{
-		data->philo[id].meals = 0;
-		data->philo[id].killed = 0;
-		data->philo[id].end.status = 0;
-		find_semname(id, data->philo[id].last_meal.sem_name, "/sem_last_meal_");
-		sem_unlink(data->philo[id].last_meal.sem_name);
-		data->philo[id].last_meal.sem = sem_name, O_CREAT | O_EXCL, 0644, 1);
-		find_semname(id, data->philo[id].end.sem_name, "/sem_end_");
-		sem_unlink(data->philo[id].end.sem_name);
-		data->philo[id].end.sem = sem_open(data->philo[id].end.sem_name, O_CREAT | O_EXCL, 0644, 1);
-		if (gettimeofday(&data->philo[id].last_meal.tv, NULL))
-			return (print_error(data->print, "gettimeofday : function failed"));
-		if (gettimeofday(&data->philo[id].nap_time, NULL))
-			return (print_error(data->print, "gettimeofday : function failed"));
-		id++;
-	}
-	return (0);
-}
 
 static int	init_data_struct(t_data *data)
 {
@@ -87,20 +40,19 @@ static int	init_data_struct(t_data *data)
 	return (0);
 }
 
-int	init_philosophers(t_data *data, t_philo *philo)
+int	init_philosophers(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	if (init_data_struct(data))
 		return (1);
-	//initphilo
 	while (i < data->philosophers)
 	{
-		data->philo[i].pid = fork();
-		if (data->philo[i].pid == -1)
+		data->pid[i] = fork();
+		if (data->pid[i] == -1)
 			return (print_error(data->print, "fork failed"));
-		if (data->philo[i].pid == 0)
+		if (data->pid[i] == 0)
 			start_routine(data, i);
 		else
 			i++;
