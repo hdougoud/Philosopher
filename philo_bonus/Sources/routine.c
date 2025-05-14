@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 01:05:59 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 18:15:37 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@
 
 void	start_routine(t_data *data)
 {
-	//t_philo	philo;
 
 	//init_philo_struct(&philo, id);
 	//(void)	philo;
