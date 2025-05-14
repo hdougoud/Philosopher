@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 01:06:05 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:06:17 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	init_philosophers(t_data *data)
 		if (data->pid[i] == 0)
 		{
 			data->this_philo = data->all_philo[i];
-			start_routine(data);
+			start_routine(data, i + 1);
 		}
 		else
 			i++;

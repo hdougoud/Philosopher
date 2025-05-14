@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 01:02:40 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:02:35 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct s_data
 	sem_t			*print;
 	sem_t			*satiated;
 	sem_t			*death_check;
-	t_philo			**all_philo;
-	t_philo			*this_philo;
+	t_philo			all_philo[MAX_PHILO];
+	t_philo			this_philo;
 	pid_t			pid[MAX_PHILO];
 	struct timeval	timer;
 }	t_data;

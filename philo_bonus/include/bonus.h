@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:08:57 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 01:06:10 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/14 21:06:35 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_itoa(int n, char *str);
 void	free_all(t_data *data);
 void	putstr_fd(int fd, const char *str);
 void	*ft_calloc(size_t count, size_t size);
-void	start_routine(t_data *data);
+void	start_routine(t_data *data, int id);
 void	print_activity(t_data *data, const int id, const char *activity);
 
 #endif
