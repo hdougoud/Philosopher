@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:36:11 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 17:14:34 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:34:18 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_activity(t_data *data, const char *activity)
 	timer = (temp.tv_usec - data->timer.tv_usec) / 1000;
 	timer += (temp.tv_sec - data->timer.tv_sec) * 1000;
 	sem_wait(data->print);
-	printf("%dms %d %s\n", timer, data->this_philo.id, activity);
+	printf("%d %d %s\n", timer, data->this_philo.id, activity);
 	sem_post(data->print);
 }
 
@@ -74,7 +74,7 @@ static void	action_eating(t_data *data)
 
 	print_activity(data, IS_EATING);
 	data->this_philo.meals += 1;
-	if (data->must_eat > 0 && data->this_philo.meals >= data->must_eat)
+	if (data->must_eat > 0 && data->this_philo.meals > data->must_eat)
 	{
 		sem_post(data->fork);
 		sem_post(data->fork);
