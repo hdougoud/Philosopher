@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 08:35:22 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:35:37 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,19 @@
 void	clean_exit(t_data *data)
 {
 	usleep(1000);
+	sem_post(data->death_check);
 	sem_close(data->fork);
 	sem_close(data->print);
 	sem_close(data->satiated);
 	sem_close(data->death_check);
+	sem_close(data->this_philo.end.sem);
+	sem_close(data->this_philo.last_meal.sem);
+	sem_unlink(data->this_philo.end.sem_name);
+	sem_unlink(data->this_philo.last_meal.sem_name);
+	pthread_join(data->this_philo.end.thread, NULL);
+	pthread_join(data->this_philo.last_meal.thread, NULL);
 	exit(EXIT_SUCCESS);
 }
-
-// void	check_the_end(t_data *data, const int id)
-// {
-// 	int	status;
-
-// 	status = 0;
-// 	sem_wait(data->philo[id].end.sem);
-// 	if (data->philo[id].end.status == 1)
-// 		status = 1;
-// 	sem_post(data->philo[id].end.sem);
-// 	if (status == 1)
-// 		clean_exit(data, id);
-// }
 
 void	print_fork_error(t_data *data, char *str)
 {
@@ -74,12 +68,13 @@ static int	init_philo_struct(t_data *data, int id)
 {
 	data->this_philo.id = id;
 	data->this_philo.meals = 0;
-	find_semname(data->this_philo.id, data->this_philo.last_meal.sem_name, "/sem_last_meal_");
+	data->this_philo.end.status = 0;
+	find_semname(id, data->this_philo.last_meal.sem_name, "/sem_last_meal_");
 	sem_unlink(data->this_philo.last_meal.sem_name);
-	data->this_philo.last_meal.sem = sem_open(data->this_philo.last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1); //ganna create leaks
-	// find_semname(id, philo->end.sem_name, "/sem_end_");
-	// sem_unlink(philo->end.sem_name);
-	// philo->end.sem = sem_open(philo->end.sem_name, O_CREAT | O_EXCL, 0644, 1);
+	data->this_philo.last_meal.sem = sem_open(data->this_philo.last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1);
+	find_semname(id, data->this_philo.end.sem_name, "/sem_end_");
+	sem_unlink(data->this_philo.end.sem_name);
+	data->this_philo.end.sem = sem_open(data->this_philo.end.sem_name, O_CREAT | O_EXCL, 0644, 1);
 	if (gettimeofday(&data->this_philo.last_meal.tv, NULL))
 		print_fork_error(data, "gettimeofday : function failed");
 	if (gettimeofday(&data->this_philo.nap_time, NULL))
@@ -89,16 +84,18 @@ static int	init_philo_struct(t_data *data, int id)
 
 void	start_routine(t_data *data, int id)
 {
-
 	init_philo_struct(data, id);
+	sem_wait(data->death_check);
 	if (data->philosophers == 1)
 	{
 		print_activity(data, TAKEN_FORK);
 		usleep(data->time_to_die * 1000);
+		print_activity(data, DIED);
 		clean_exit(data);
 	}
+	init_monitorings(data);
 	if ((id % 2) == 0)
 		usleep(50);
 	next_action(data);
-	exit(EXIT_SUCCESS);
+	clean_exit(data);
 }
