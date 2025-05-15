@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:53:14 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 17:06:54 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:16:14 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	*end_simulation(void *thread)
 	t_data	*data;
 
 	data = (t_data *)thread;
-	usleep(20000);
+	usleep(1000);
 	sem_wait(data->death_check);
 	sem_wait(data->this_philo.end.sem);
 	data->this_philo.end.status = 1;
@@ -59,7 +59,11 @@ static void	*last_meal(void *thread)
 		sem_post(data->this_philo.last_meal.sem);
 		usleep(300);
 	}
-	print_activity(data, DIED);
+	timer = (temp.tv_sec - data->timer.tv_sec) * 1000;
+	timer += (temp.tv_usec - data->timer.tv_usec) / 1000;
+	sem_wait(data->print);
+	printf("%dms %d %s\n", timer, data->this_philo.id, "died"); //add timer here, missing printing died info sometime
+	sem_post(data->print);
 	sem_wait(data->this_philo.end.sem);
 	data->this_philo.end.status = 1;
 	sem_post(data->this_philo.end.sem);
