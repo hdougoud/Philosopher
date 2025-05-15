@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 16:42:58 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:31:35 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ static int	init_philo_struct(t_data *data, int id)
 void	start_routine(t_data *data, int id)
 {
 	init_philo_struct(data, id);
-	sem_wait(data->death_check);
 	if (data->philosophers == 1)
 	{
 		print_activity(data, TAKEN_FORK);

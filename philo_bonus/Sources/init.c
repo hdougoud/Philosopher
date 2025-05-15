@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 12:20:50 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 17:09:34 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:31:24 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	init_data_struct(t_data *data)
 	data->print = sem_open("/sem_print", O_CREAT | O_EXCL, 0644, 1);
 	if (data->print == SEM_FAILED)
 		return (putstr_fd(2, RED"sem_print open failed\n"RESET), 1);
-	data->death_check = sem_open("/sem_death", O_CREAT | O_EXCL, 0644, max);
+	data->death_check = sem_open("/sem_death", O_CREAT | O_EXCL, 0644, 0);
 	if (data->death_check == SEM_FAILED)
 		return (putstr_fd(2, RED"sem_death open failed\n"RESET), 1);
 	return (0);
