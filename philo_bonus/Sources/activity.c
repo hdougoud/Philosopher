@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 11:36:11 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 16:50:56 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:00:02 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	eat_loop(t_data	*data, struct timeval current)
 			print_fork_error(data, "gettimeofday : function failed");
 		timer = (temp.tv_usec - current.tv_usec) / 1000;
 		timer += (temp.tv_sec - current.tv_sec) * 1000;
-		usleep(1000);
+		usleep(300);
 	}
 }
 

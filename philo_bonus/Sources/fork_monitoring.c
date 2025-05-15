@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 11:53:14 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 16:51:01 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:00:22 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	*end_simulation(void *thread)
 	t_data	*data;
 
 	data = (t_data *)thread;
-	usleep(1000);
+	usleep(500);
 	sem_wait(data->death_check);
 	sem_wait(data->this_philo.end.sem);
 	data->this_philo.end.status = 1;
