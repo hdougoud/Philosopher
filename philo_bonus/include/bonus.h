@@ -6,17 +6,17 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:08:57 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 08:34:49 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:39:56 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BONUS_H
 # define BONUS_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <semaphore.h>
-#include <sys/time.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <semaphore.h>
+# include <sys/time.h>
 
 # define RED	"\x1b[31;1m"
 # define GREEN	"\x1b[32;1m"

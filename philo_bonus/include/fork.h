@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:11:30 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 14:19:13 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:39:29 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef struct s_data	t_data;
 
-int	is_this_the_end(t_data *data);
+int		is_this_the_end(t_data *data);
 
 void	clean_exit(t_data *data);
 void	next_action(t_data *data);

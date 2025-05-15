@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 14:00:49 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 11:51:24 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:41:59 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "../include/bonus.h"
 #include "../include/struct.h"
 
-
-#include <stdio.h>
 int	monitoring(t_data *data)
 {
 	int			i;

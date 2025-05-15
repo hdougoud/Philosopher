@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 14:35:37 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:42:58 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@
 
 void	clean_exit(t_data *data)
 {
-	usleep(1000);
 	sem_post(data->death_check);
-	sem_close(data->fork);
-	sem_close(data->print);
-	sem_close(data->satiated);
+	pthread_join(data->this_philo.end.thread, NULL);
+	pthread_join(data->this_philo.last_meal.thread, NULL);
 	sem_close(data->death_check);
 	sem_close(data->this_philo.end.sem);
 	sem_close(data->this_philo.last_meal.sem);
+	sem_close(data->fork);
+	sem_close(data->print);
 	sem_unlink(data->this_philo.end.sem_name);
 	sem_unlink(data->this_philo.last_meal.sem_name);
-	pthread_join(data->this_philo.end.thread, NULL);
-	pthread_join(data->this_philo.last_meal.thread, NULL);
 	exit(EXIT_SUCCESS);
 }
 
@@ -38,7 +36,6 @@ void	print_fork_error(t_data *data, char *str)
 	putstr_fd(2, str);
 	putstr_fd(2, YELLOW"Exit program"RESET);
 	sem_post(data->print);
-	sem_post(data->satiated);
 	clean_exit(data);
 }
 
@@ -71,10 +68,12 @@ static int	init_philo_struct(t_data *data, int id)
 	data->this_philo.end.status = 0;
 	find_semname(id, data->this_philo.last_meal.sem_name, "/sem_last_meal_");
 	sem_unlink(data->this_philo.last_meal.sem_name);
-	data->this_philo.last_meal.sem = sem_open(data->this_philo.last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1);
+	data->this_philo.last_meal.sem = sem_open
+		(data->this_philo.last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1);
 	find_semname(id, data->this_philo.end.sem_name, "/sem_end_");
 	sem_unlink(data->this_philo.end.sem_name);
-	data->this_philo.end.sem = sem_open(data->this_philo.end.sem_name, O_CREAT | O_EXCL, 0644, 1);
+	data->this_philo.end.sem = sem_open
+		(data->this_philo.end.sem_name, O_CREAT | O_EXCL, 0644, 1);
 	if (gettimeofday(&data->this_philo.last_meal.tv, NULL))
 		print_fork_error(data, "gettimeofday : function failed");
 	if (gettimeofday(&data->this_philo.nap_time, NULL))

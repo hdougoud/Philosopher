@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:28:05 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 14:31:35 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:42:26 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 	t_end			end;
 	t_last_meal		last_meal;
 	struct timeval	nap_time;
-	struct s_data *data;
+	struct s_data	*data;
 }	t_philo;
 
 typedef struct s_data
@@ -54,7 +54,6 @@ typedef struct s_data
 	int				must_eat;
 	sem_t			*fork;
 	sem_t			*print;
-	sem_t			*satiated;
 	sem_t			*death_check;
 	t_philo			all_philo[MAX_PHILO];
 	t_philo			this_philo;
