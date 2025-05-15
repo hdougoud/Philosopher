@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:58:48 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/15 16:44:00 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:09:07 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,5 @@ int	main(int argc, char **argv)
 		free_all(&data);
 		return (1);
 	}
-	if (monitoring(&data))
-		return (1);
 	free_all(&data);
 }
