@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 10:02:20 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 21:20:19 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 08:35:22 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,42 +48,42 @@ void	print_fork_error(t_data *data, char *str)
 	clean_exit(data);
 }
 
-// static char	*find_semname(const int id, char *sem_name, char *generic)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	nb[5];
+static char	*find_semname(int id, char *sem_name, char *generic)
+{
+	int		i;
+	int		j;
+	char	nb[5];
 
-// 	i = 0;
-// 	j = 0;
-// 	while (generic[i])
-// 	{
-// 		sem_name[i] = generic[i];
-// 		i++;
-// 	}
-// 	ft_itoa(id, nb);
-// 	while (nb[j])
-// 	{
-// 		sem_name[i++] = nb[j++];
-// 	}
-// 	sem_name[i] = '\0';
-// 	return (sem_name);
-// }
+	i = 0;
+	j = 0;
+	while (generic[i])
+	{
+		sem_name[i] = generic[i];
+		i++;
+	}
+	ft_itoa(id, nb);
+	while (nb[j])
+	{
+		sem_name[i++] = nb[j++];
+	}
+	sem_name[i] = '\0';
+	return (sem_name);
+}
 
 static int	init_philo_struct(t_data *data, int id)
 {
 	data->this_philo.id = id;
 	data->this_philo.meals = 0;
-	// find_semname(id, philo->last_meal.sem_name, "/sem_last_meal_");
-	// sem_unlink(philo->last_meal.sem_name);
-	// philo->last_meal.sem = sem_open(philo->last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1); //ganna create leaks
+	find_semname(data->this_philo.id, data->this_philo.last_meal.sem_name, "/sem_last_meal_");
+	sem_unlink(data->this_philo.last_meal.sem_name);
+	data->this_philo.last_meal.sem = sem_open(data->this_philo.last_meal.sem_name, O_CREAT | O_EXCL, 0644, 1); //ganna create leaks
 	// find_semname(id, philo->end.sem_name, "/sem_end_");
 	// sem_unlink(philo->end.sem_name);
 	// philo->end.sem = sem_open(philo->end.sem_name, O_CREAT | O_EXCL, 0644, 1);
-	//if (gettimeofday(&philo->last_meal.tv, NULL))
-	//	return (print_error(data->print, "gettimeofday : function failed"));
-	//if (gettimeofday(&philo->nap_time, NULL))
-	//	return (print_error(data->print, "gettimeofday : function failed"));
+	if (gettimeofday(&data->this_philo.last_meal.tv, NULL))
+		print_fork_error(data, "gettimeofday : function failed");
+	if (gettimeofday(&data->this_philo.nap_time, NULL))
+		print_fork_error(data, "gettimeofday : function failed");
 	return (0);
 }
 

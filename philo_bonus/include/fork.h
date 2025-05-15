@@ -6,7 +6,7 @@
 /*   By: hdougoud <hdougoud@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 19:11:30 by hdougoud          #+#    #+#             */
-/*   Updated: 2025/05/14 21:17:19 by hdougoud         ###   ########.fr       */
+/*   Updated: 2025/05/15 08:34:56 by hdougoud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ void	check_the_end(t_data *dat);
 void	putstr_fd(int fd, const char *str);
 void	print_fork_error(t_data *data, char *str);
 void	print_activity(t_data *data, const char *activity);
+
+char	*ft_itoa(int n, char *str);
 
 #endif
